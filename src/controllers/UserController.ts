@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 
-import dbPool from "@/src/database/DbInit_old";
-import NewUserModel from "@models/NewUserModel";
-import { UserRepository } from "@database/repositories/UserRepository";
+import dbPool from "@db/DbInit_old";
+import NewUserModel from "@db/models/NewUserModel";
+import { UserRepository } from "@db/repositories/UserRepository";
 
 export const createUser = async (req: Request, res: Response) => {
   try {

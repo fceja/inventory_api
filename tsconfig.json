@@ -13,18 +13,17 @@
     "outDir": "./dist",
     "resolveJsonModule": true,
     "paths": {
-      "@/*": ["./*"],
       "@configs/*": ["./src/configs/*"],
       "@controllers/*": ["./src/controllers/*"],
-      "@database/*": ["./src/database/*"],
+      "@db/*": ["./src/db/*"],
       "@middleware/*": ["./src/middleware/*"],
-      "@models/*": ["src/database/models/*"],
+      "@models/*": ["src/db/models/*"],
       "@routers/*": ["./src/routers/*"],
       "@routes/*": ["./src/routes/*"],
       "@appTypes/*": ["./src/types/*"],
       "@utils/*": ["./src/utils/*"]
     },
-    "typeRoots": ["./src/types/express.d.ts"]
+    "typeRoots": ["src/types/CustomExpress.d.ts"]
   },
   "include": ["src"]
 }

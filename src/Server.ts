@@ -5,7 +5,7 @@ import session from "express-session";
 import swaggerUi from "swagger-ui-express";
 
 import CONFIG_FILE from "@configs/Config";
-import { DbPoolClient } from "@database/DbPoolClient";
+import { DbPoolClient } from "@db/DbPoolClient";
 import _Request from "@appTypes/CustomExpress";
 import indexRouter from "@routes/IndexRouter";
 import { swaggerConfig } from "@configs/SwaggerConfig";

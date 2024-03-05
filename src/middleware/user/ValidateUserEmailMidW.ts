@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 
-import dbPool from "@/src/database/DbInit_old";
-import UserModel from "@models/UserModel";
-import { UserRepository } from "@database/repositories/UserRepository";
+import dbPool from "@db/DbInit_old";
+import UserModel from "@db/models/UserModel";
+import { UserRepository } from "@db/repositories/UserRepository";
 
 export const userEmailAndRoleExistsMW = async (
   req: Request,

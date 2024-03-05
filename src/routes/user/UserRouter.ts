@@ -4,7 +4,7 @@ import * as userController from "@controllers/UserController";
 import refreshJwtTokenMidW from "@middleware/auth/RefreshJwtTokenMidW";
 import requireAdminMidW from "@middleware/auth/RequireAdminMidW";
 import validateJwtTokenMidW from "@middleware/auth/ValidateJwtTokenMidW";
-import { userEmailDoesNotExistMW } from "@/src/middleware/user/ValidateUserEmailMidW";
+import { userEmailDoesNotExistMW } from "@middleware/user/ValidateUserEmailMidW";
 
 const usersRouter = express.Router();
 

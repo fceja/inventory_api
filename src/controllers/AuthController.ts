@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
+import { QueryResult } from "pg";
 
-import dbPool from "@/src/database/DbInit_old";
+import dbPool from "@db/DbInit_old";
 import { getSessionTokenMidW } from "@middleware/auth/GetSessionTokenMidW";
-import _SessionData from "@appTypes/express-session/Index";
-import UserModel from "@models/UserModel";
-import { UserRepository } from "@database/repositories/UserRepository";
+import UserModel from "@db/models/UserModel";
+import { UserRepository } from "@db/repositories/UserRepository";
 
 // TODO - verify if needed
 // import _SessionData from "@appTypes/express-session/Index";
@@ -40,7 +40,7 @@ export const loginAuth = async (req: Request, res: Response) => {
 
     // // get user data from db
     const storedUserData: UserModel = await userDbrepo.getUserAndRoleByEmail(
-      payloadUserData.email
+      payloadUserData.email,
     );
 
     // validate pass is valid

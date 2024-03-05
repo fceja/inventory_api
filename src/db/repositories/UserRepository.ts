@@ -1,8 +1,8 @@
 import { QueryResult } from "pg";
 
-import { BaseRepository } from "@database/repositories/base/BaseRepository";
-import UserModel from "@models/UserModel";
-import UserRoleModel from "@models/UserRoleModel";
+import { BaseRepository } from "@db/repositories/base/BaseRepository";
+import UserModel from "@db/models/UserModel";
+import UserRoleModel from "@db/models/UserRoleModel";
 
 export class UserRepository extends BaseRepository<UserModel | UserRoleModel> {
   // create user
