@@ -25,7 +25,11 @@ const indexRouter = express.Router();
  *                   type: string
  */
 indexRouter.get("/", (_req: Request, res: Response) => {
-  res.status(200).json({ message: "public - index" });
+  try {
+    res.status(200).json({ message: "public - index" });
+  } catch (error) {
+    console.error(error)
+  }
 });
 
 indexRouter.use("/auth", authRouter);
