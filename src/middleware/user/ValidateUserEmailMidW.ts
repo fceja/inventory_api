@@ -7,7 +7,7 @@ import { UserRepository } from "@database/repositories/UserRepository";
 export const userEmailAndRoleExistsMW = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     // parse user data from payload
@@ -18,7 +18,7 @@ export const userEmailAndRoleExistsMW = async (
 
     // check db if valid user exists
     const storedUserData: UserModel = await userDbrepo.getUserAndRoleByEmail(
-      payloadUserData.email
+      payloadUserData.email,
     );
     if (!storedUserData) throw new Error("User record does not exist.");
 
@@ -33,7 +33,7 @@ export const userEmailAndRoleExistsMW = async (
 export const userEmailDoesNotExistMW = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     // parse user data from payload
