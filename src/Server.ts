@@ -5,7 +5,6 @@ import session from "express-session";
 import swaggerUi from "swagger-ui-express";
 
 import CONFIG_FILE from "@configs/Config";
-import { DbPoolClient } from "@db/DbPoolClient";
 import _Request from "@appTypes/CustomExpress";
 import indexRouter from "@routes/IndexRouter";
 import { swaggerConfig } from "@configs/SwaggerConfig";
@@ -18,7 +17,6 @@ const app: Application = express();
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(DbPoolClient());
 app.use(
   session({
     name: "app-session",
