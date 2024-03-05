@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 
-import dbPool from "@database/DbInit";
+import dbPool from "@/src/database/DbInit_old";
 import NewUserModel from "@models/NewUserModel";
 import { UserRepository } from "@database/repositories/UserRepository";
 

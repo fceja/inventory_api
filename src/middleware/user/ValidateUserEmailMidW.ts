@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import dbPool from "@database/DbInit";
+import dbPool from "@/src/database/DbInit_old";
 import UserModel from "@models/UserModel";
 import { UserRepository } from "@database/repositories/UserRepository";
 

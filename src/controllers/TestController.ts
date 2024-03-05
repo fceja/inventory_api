@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import dbPool from "@database/DbInit";
+import dbPool from "@/src/database/DbInit_old";
 import { UserRepository } from "@database/repositories/UserRepository";
 
 const testDbBaseRepoFind = async () => {

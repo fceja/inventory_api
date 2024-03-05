@@ -1,11 +1,14 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 
-import dbPool from "@database/DbInit";
+import dbPool from "@/src/database/DbInit_old";
 import { getSessionTokenMidW } from "@middleware/auth/GetSessionTokenMidW";
 import _SessionData from "@appTypes/express-session/Index";
 import UserModel from "@models/UserModel";
 import { UserRepository } from "@database/repositories/UserRepository";
+
+// TODO - verify if needed
+// import _SessionData from "@appTypes/express-session/Index";
 
 const parseUserDataToSession = (req: Request, storedUserData: UserModel) => {
   /* NOTE */
