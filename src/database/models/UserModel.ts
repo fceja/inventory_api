@@ -1,4 +1,7 @@
-import { UserInterface } from "@appTypes/IndexTypes";
+interface UserInterface {
+  email: string;
+  password: string;
+}
 
 class UserModel {
   userId?: string;
