@@ -1,15 +1,13 @@
-import { PoolClient } from "pg";
 import assert from "assert";
+import bcrypt from "bcrypt";
+import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
-import UserModel from "@db/models/UserModel";
 
-export const validUserExists = async (userData: UserModel) => {
+export const validUserExists = async (email: string, password: string) => {
   let dbConn: PoolClient | null = null;
 
   try {
-    const { email } = userData;
-
     dbConn = await connPool.connect();
 
     const qResult = await dbConn.query(`
@@ -28,11 +26,17 @@ export const validUserExists = async (userData: UserModel) => {
     );
     assert.equal(storedUser.email, email);
 
-    return true;
+    if (!bcrypt.compareSync(password, storedUser.password))
+      throw new Error("Invalid password.");
+
+    return {
+      userId: storedUser.userId,
+      role: storedUser.role,
+    };
   } catch (error) {
     console.error(error);
 
-    return false;
+    return null;
   } finally {
     if (dbConn) dbConn.release();
   }

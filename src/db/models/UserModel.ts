@@ -8,6 +8,7 @@ class UserModel {
   email?: string;
   password?: string;
   createdAt?: string;
+  role?: string;
   lastUpdated?: string;
 
   constructor({ email, password }: UserInterface) {

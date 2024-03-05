@@ -1,21 +1,32 @@
 import { Request, Response } from "express";
 
-import { validUserExists } from "@middleware/auth/user/ValidUserExistsMidW";
+import { getJwtMidW } from "@middleware/auth/jwt/getJwtMidW";
 import UserModel from "@db/models/UserModel";
+import { validUserExists } from "@middleware/auth/user/ValidUserExistsMidW";
 
 // login controller
 export const Login = async (req: Request, res: Response) => {
   try {
     // parse user data from payload body
-    const payloadUserData = new UserModel(req.body);
+    const { email, password } = new UserModel(req.body);
 
-    const result = await validUserExists(payloadUserData);
-    if (!result) throw Error("User does not exist.");
+    // verify valid user exists in db
+    const storedUser = await validUserExists(email, password);
+    if (!storedUser) throw Error("User does not exist.");
 
-    return res.status(200).json({ message: `TODO - valid user -> ${result}` });
+    // add user data to session
+    const { userId, role } = storedUser;
+    req.session.userId = userId;
+    req.session.email = email;
+    req.session.userRole = role;
+
+    req.session.token = getJwtMidW(email, userId);
+
+    return res
+      .status(200)
+      .json({ message: `TODO - valid user -> ${storedUser}` });
   } catch (error) {
     console.error(error);
-    // console.log(error);
     return res.status(401).json({ message: "Not authorized." });
   }
 };

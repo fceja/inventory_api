@@ -1,23 +1,21 @@
 import jwt from "jsonwebtoken";
-import { Request } from "express";
 
 import CONFIG_FILE from "@configs/Config";
 
 /**
  *
- * @param {Request} req - Express Request object.
+ * @param {string} email - user email.
+ * @param {string} userId - user id.
  *
- * @returns {string} jwtToken - Generated JWT token.
  *
  * @description
- * - Parse Request object for user data
  * - Generates and returns JWT token with an expiry.
  *
- **/
-export const getSessionTokenMidW = (req: Request): string => {
+ */
+export const getJwtMidW = (email: string, userId: string) => {
   const jwtSignPayload = {
-    email: req.session.email,
-    userId: req.session.userId,
+    email: email,
+    userId: userId,
   };
   const jwtSignOptions = {
     expiresIn: parseInt(CONFIG_FILE.AUTH_JWT_TOKEN_EXPIRY),
@@ -27,7 +25,7 @@ export const getSessionTokenMidW = (req: Request): string => {
   const jwtToken = jwt.sign(
     jwtSignPayload,
     CONFIG_FILE.AUTH_JWT_SECRET_KEY,
-    jwtSignOptions
+    jwtSignOptions,
   );
 
   return jwtToken;
