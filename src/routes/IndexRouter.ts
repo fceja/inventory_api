@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 
 import authRouter from "@routes/auth/AuthRouter";
 import userRouter from "@routes/user/UserRouter";
+import productsRouter from "@routes/products/ProductsRouter";
 
 // init
 const indexRouter = express.Router();
@@ -33,5 +34,6 @@ indexRouter.get("/", (_req: Request, res: Response) => {
 
 indexRouter.use("/auth", authRouter);
 indexRouter.use("/user", userRouter);
+indexRouter.use("/products", productsRouter);
 
 export default indexRouter;
