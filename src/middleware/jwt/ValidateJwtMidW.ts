@@ -80,7 +80,7 @@ const validateJwtMidW = (
     console.error(error);
 
     return res.status(401).send({
-      message: "Invalid user",
+      results: "Invalid user",
     });
   }
 };

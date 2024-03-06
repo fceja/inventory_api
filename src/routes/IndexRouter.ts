@@ -12,21 +12,21 @@ const indexRouter = express.Router();
  * /api:
  *   get:
  *     summary: Public endpoint
- *     description: Returns a simple message.
+ *     description: Returns a public message.
  *     responses:
  *       200:
- *         description: A simple message.
+ *         description: A public message.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 message:
+ *                 results:
  *                   type: string
  */
 indexRouter.get("/", (_req: Request, res: Response) => {
   try {
-    res.status(200).json({ message: "public - index" });
+    res.status(200).json({ results: "public - index" });
   } catch (error) {
     console.error(error);
   }
