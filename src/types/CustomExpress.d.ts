@@ -1,17 +1,17 @@
 import "express-session";
 import { PoolClient } from "pg";
 
+interface SystemUserSessionData {
+  systemUsersId: number | null;
+  email: string | null;
+  role: string | null;
+  token: string | null;
+}
+
 declare module "express-session" {
   export interface SessionData {
     systemUser?: SystemUserSessionData;
   }
-}
-
-interface SystemUserSessionData {
-  systemUsersId: Number;
-  email: string;
-  role: string;
-  token: string;
 }
 
 declare global {

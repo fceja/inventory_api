@@ -1,16 +1,16 @@
-interface SystemStoredUserI {
-  system_users_id: Number;
+interface SystemStoredUserModelI {
+  system_users_id: number;
   email: string;
   password: string;
   role: string;
 }
 
 class SystemStoredUserModel {
-  readonly systemUsersId: Number;
+  readonly systemUsersId: number;
   readonly email: string;
   readonly role: string;
 
-  constructor({ system_users_id, email, role }: SystemStoredUserI) {
+  constructor({ system_users_id, email, role }: SystemStoredUserModelI) {
     this.systemUsersId = system_users_id;
     this.email = email;
     this.role = role;

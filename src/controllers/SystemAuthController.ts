@@ -39,10 +39,18 @@ const addSystemUserInfoToSession = (
   req: Request,
   storedUser: SystemStoredUserModel,
 ) => {
-  const { systemUsersId, email, role } = storedUser;
-  req.session.systemUser.systemUsersId = systemUsersId;
-  req.session.systemUser.email = email;
-  req.session.systemUser.role = role;
+  req.session.systemUser = {
+    systemUsersId: null,
+    email: "",
+    role: "",
+    token: "",
+  };
 
-  req.session.systemUser.token = getJwtMidW(email, systemUsersId);
+  req.session.systemUser.systemUsersId = storedUser.systemUsersId;
+  req.session.systemUser.email = storedUser.email;
+  req.session.systemUser.role = storedUser.role;
+  req.session.systemUser.token = getJwtMidW(
+    storedUser.email,
+    storedUser.systemUsersId,
+  );
 };

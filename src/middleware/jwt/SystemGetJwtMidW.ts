@@ -13,7 +13,7 @@ import CONFIG_FILE from "@configs/Config";
  *
  */
 // TODO - refactor to consider system and customer
-export const getJwtMidW = (email: string, userId: Number) => {
+export const getJwtMidW = (email: string, userId: number) => {
   const jwtSignPayload = {
     email: email,
     userId: userId,
