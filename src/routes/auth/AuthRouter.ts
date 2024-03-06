@@ -1,20 +1,19 @@
 import express from "express";
 
-import { LoginController } from "@controllers/LoginController";
-import { TestJwtAuthController } from "@controllers/TestController";
+import * as AuthController from "@controllers/AuthController";
 import refreshJwtMidW from "@middleware/auth/jwt/RefreshJwtMidW";
 import validateJwtMidW from "@middleware/auth/jwt/ValidateJwtMidW";
 
 const authRouter = express.Router();
 
-// NO AUTH
-authRouter.get("/login", LoginController);
+// no auth required
+authRouter.get("/login", AuthController.login);
 
-// AUTH
+// auth required
 authRouter.use(
   "/testJwt",
   [validateJwtMidW, refreshJwtMidW],
-  TestJwtAuthController,
+  AuthController.testJwtAuth,
 );
 
 export default authRouter;

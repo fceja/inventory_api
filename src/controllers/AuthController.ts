@@ -4,8 +4,7 @@ import { getJwtMidW } from "@middleware/auth/jwt/GetJwtMidW";
 import UserModel from "@db/models/UserModel";
 import { validUserExists } from "@middleware/auth/user/ValidUserExistsMidW";
 
-// login controller
-export const LoginController = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   try {
     // parse user data from payload body
     const { email, password } = new UserModel(req.body);
@@ -29,4 +28,10 @@ export const LoginController = async (req: Request, res: Response) => {
     console.error(error);
     return res.status(401).json({ message: "Not authorized." });
   }
+};
+
+export const testJwtAuth = (_req: Request, res: Response) => {
+  return res.send({
+    message: `Jwt is valid`,
+  });
 };
