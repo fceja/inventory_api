@@ -3,11 +3,15 @@ import { PoolClient } from "pg";
 
 declare module "express-session" {
   export interface SessionData {
-    userId: string;
-    email: string;
-    userRole: string;
-    token: string;
+    systemUser?: SystemUserSessionData;
   }
+}
+
+interface SystemUserSessionData {
+  systemUsersId: Number;
+  email: string;
+  role: string;
+  token: string;
 }
 
 declare global {

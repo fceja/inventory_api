@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import { getJwtMidW } from "@middleware/jwt/GetJwtMidW";
+import { getJwtMidW } from "@middleware/jwt/SystemGetJwtMidW";
 
 /**
  *
@@ -16,8 +16,10 @@ import { getJwtMidW } from "@middleware/jwt/GetJwtMidW";
 const refreshJwtMidW = (req: Request, _res: Response, next: NextFunction) => {
   try {
     // apply new jwt token to session
-    // req.session.token = getJwtMidW(req);
-    req.session.token = getJwtMidW(req.session.email, req.session.userId);
+    req.session.systemUser.token = getJwtMidW(
+      req.session.systemUser.email,
+      req.session.systemUser.systemUsersId,
+    );
 
     // pass request to next function
     next();

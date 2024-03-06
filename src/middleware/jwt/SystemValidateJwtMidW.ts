@@ -7,8 +7,8 @@ import CONFIG_FILE from "@configs/Config";
 const decodeJwtToken = (req: Request) => {
   try {
     const decodedToken = jwt.verify(
-      req.session.token,
-      CONFIG_FILE.AUTH_JWT_SECRET_KEY,
+      req.session.systemUser.token,
+      CONFIG_FILE.SYSTEM_JWT_SECRET_KEY,
     );
 
     return decodedToken;
@@ -26,11 +26,11 @@ const validateJwt = (
   try {
     if (decodedJwtToken instanceof Object) {
       assert(
-        decodedJwtToken.userId === req.session.userId,
+        decodedJwtToken.userId === req.session.systemUser.systemUsersId,
         "Expected id's to match but did not.",
       );
       assert(
-        decodedJwtToken.email === req.session.email,
+        decodedJwtToken.email === req.session.systemUser.email,
         "Expected emails's to match but did not.",
       );
 

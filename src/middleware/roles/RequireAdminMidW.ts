@@ -7,7 +7,7 @@ export default function requireAdminMidW(
 ) {
   // verify user has admin role
   try {
-    if (!(req.session.userRole === "admin")) {
+    if (!(req.session.systemUser.role === "admin")) {
       throw new Error("User not authorized.");
     }
 

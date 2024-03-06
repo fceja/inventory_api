@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
+import SystemStoredUserModel from "@db/models/SystemStoredUserModel";
 
 export const authSystemUserMidW = async (email: string, password: string) => {
   let dbConn: PoolClient | null = null;
@@ -17,7 +18,7 @@ export const authSystemUserMidW = async (email: string, password: string) => {
     `);
 
     const storedUser = qResult.rows[0];
-    if (!storedUser) return false;
+    if (!storedUser) return null;
 
     const validRoles = ["admin", "mngr", "staff"];
     assert.ok(
@@ -29,10 +30,9 @@ export const authSystemUserMidW = async (email: string, password: string) => {
     if (!bcrypt.compareSync(password, storedUser.password))
       throw new Error("Invalid password.");
 
-    return {
-      systemUsersId: storedUser.userId,
-      role: storedUser.role,
-    };
+    const storedUserInfo = new SystemStoredUserModel(storedUser);
+
+    return storedUserInfo;
   } catch (error) {
     console.error(error);
 

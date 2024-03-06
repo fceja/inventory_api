@@ -1,25 +1,24 @@
 import { Request, Response } from "express";
 
-import { getJwtMidW } from "@middleware/jwt/GetJwtMidW";
-import SystemUsersModel from "@db/models/SystemUsersModel";
+import { getJwtMidW } from "@middleware/jwt/SystemGetJwtMidW";
+import SystemLoginUserModel from "@db/models/SystemLoginUserModel";
+import SystemStoredUserModel from "@db/models/SystemStoredUserModel";
 import { authSystemUserMidW } from "@middleware/systemAuth/AuthSystemUserMidW";
 
 export const systemLogin = async (req: Request, res: Response) => {
   try {
-    // parse user data from payload body
-    const { email, password } = new SystemUsersModel(req.body);
+    // parse data from payload body, for user attempting to login with system access
+    const { email, password } = new SystemLoginUserModel(req.body);
 
-    // verify valid user exists in db
-    const storedUser = await authSystemUserMidW(email, password);
-    if (!storedUser) throw Error("User does not exist.");
+    // verify a valid system user exists in db
+    const storedUser: SystemStoredUserModel = await authSystemUserMidW(
+      email,
+      password,
+    );
+    if (!storedUser) throw Error("System user error.");
 
-    // add user data to session
-    const { systemUsersId, role } = storedUser;
-    req.session.userId = systemUsersId;
-    req.session.email = email;
-    req.session.userRole = role;
-
-    req.session.token = getJwtMidW(email, systemUsersId);
+    // add system user data to session
+    addSystemUserInfoToSession(req, storedUser);
 
     return res
       .status(200)
@@ -34,4 +33,16 @@ export const testJwtAuth = (_req: Request, res: Response) => {
   return res.send({
     results: `Jwt is valid`,
   });
+};
+
+const addSystemUserInfoToSession = (
+  req: Request,
+  storedUser: SystemStoredUserModel,
+) => {
+  const { systemUsersId, email, role } = storedUser;
+  req.session.systemUser.systemUsersId = systemUsersId;
+  req.session.systemUser.email = email;
+  req.session.systemUser.role = role;
+
+  req.session.systemUser.token = getJwtMidW(email, systemUsersId);
 };
