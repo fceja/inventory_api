@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
 
 import authRouter from "@routes/auth/AuthRouter";
-import testRouter from "@routes/test/TestRouter";
 import userRouter from "@routes/user/UserRouter";
 
 // init
@@ -28,12 +27,11 @@ indexRouter.get("/", (_req: Request, res: Response) => {
   try {
     res.status(200).json({ message: "public - index" });
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 });
 
 indexRouter.use("/auth", authRouter);
-indexRouter.use("/test", testRouter);
 indexRouter.use("/user", userRouter);
 
 export default indexRouter;

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 
-import { getJwtMidW } from "@middleware/auth/jwt/getJwtMidW";
+import { getJwtMidW } from "@middleware/auth/jwt/GetJwtMidW";
 import UserModel from "@db/models/UserModel";
 import { validUserExists } from "@middleware/auth/user/ValidUserExistsMidW";
 
 // login controller
-export const Login = async (req: Request, res: Response) => {
+export const LoginController = async (req: Request, res: Response) => {
   try {
     // parse user data from payload body
     const { email, password } = new UserModel(req.body);
