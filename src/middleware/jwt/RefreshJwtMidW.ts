@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import { getJwtMidW } from "@middleware/auth/jwt/GetJwtMidW";
+import { getJwtMidW } from "@middleware/jwt/GetJwtMidW";
 
 /**
  *

@@ -1,9 +1,9 @@
 import express from "express";
 
 import * as UserController from "@controllers/UserController";
-import refreshJwtMidW from "@middleware/auth/jwt/RefreshJwtMidW";
-import requireAdminMidW from "@middleware/auth/RequireAdminMidW";
-import validateJwtMidW from "@middleware/auth/jwt/ValidateJwtMidW";
+import refreshJwtMidW from "@middleware/jwt/RefreshJwtMidW";
+import requireAdminMidW from "@middleware/role/RequireAdminMidW";
+import validateJwtMidW from "@middleware/jwt/ValidateJwtMidW";
 
 const usersRouter = express.Router();
 

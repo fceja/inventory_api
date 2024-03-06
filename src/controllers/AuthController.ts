@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
-import { getJwtMidW } from "@middleware/auth/jwt/GetJwtMidW";
+import { getJwtMidW } from "@middleware/jwt/GetJwtMidW";
 import UserModel from "@db/models/UserModel";
-import { validUserExists } from "@middleware/auth/user/ValidUserExistsMidW";
+import { validUserExists } from "@middleware/user/ValidUserExistsMidW";
 
 export const login = async (req: Request, res: Response) => {
   try {

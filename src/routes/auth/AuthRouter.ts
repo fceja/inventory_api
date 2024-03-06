@@ -1,8 +1,8 @@
 import express from "express";
 
 import * as AuthController from "@controllers/AuthController";
-import refreshJwtMidW from "@middleware/auth/jwt/RefreshJwtMidW";
-import validateJwtMidW from "@middleware/auth/jwt/ValidateJwtMidW";
+import refreshJwtMidW from "@middleware/jwt/RefreshJwtMidW";
+import validateJwtMidW from "@middleware/jwt/ValidateJwtMidW";
 
 const authRouter = express.Router();
 
