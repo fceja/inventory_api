@@ -4,7 +4,10 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 
-export const validUserExists = async (email: string, password: string) => {
+export const validateSystemUserMidW = async (
+  email: string,
+  password: string,
+) => {
   let dbConn: PoolClient | null = null;
 
   try {
@@ -12,7 +15,7 @@ export const validUserExists = async (email: string, password: string) => {
 
     const qResult = await dbConn.query(`
       SELECT *
-      FROM users A
+      FROM system_users A
       WHERE A.email='${email}'
     `);
 
@@ -30,7 +33,7 @@ export const validUserExists = async (email: string, password: string) => {
       throw new Error("Invalid password.");
 
     return {
-      userId: storedUser.userId,
+      systemUsersId: storedUser.userId,
       role: storedUser.role,
     };
   } catch (error) {

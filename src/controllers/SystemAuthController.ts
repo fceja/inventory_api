@@ -1,25 +1,25 @@
 import { Request, Response } from "express";
 
 import { getJwtMidW } from "@middleware/jwt/GetJwtMidW";
-import UserModel from "@db/models/UserModel";
-import { validUserExists } from "@middleware/user/ValidUserExistsMidW";
+import SystemUsersModel from "@db/models/SystemUsersModel";
+import { validateSystemUserMidW } from "@middleware/systemUsers/ValidateSystemUserExistsMidW";
 
-export const login = async (req: Request, res: Response) => {
+export const systemLogin = async (req: Request, res: Response) => {
   try {
     // parse user data from payload body
-    const { email, password } = new UserModel(req.body);
+    const { email, password } = new SystemUsersModel(req.body);
 
     // verify valid user exists in db
-    const storedUser = await validUserExists(email, password);
+    const storedUser = await validateSystemUserMidW(email, password);
     if (!storedUser) throw Error("User does not exist.");
 
     // add user data to session
-    const { userId, role } = storedUser;
-    req.session.userId = userId;
+    const { systemUsersId, role } = storedUser;
+    req.session.userId = systemUsersId;
     req.session.email = email;
     req.session.userRole = role;
 
-    req.session.token = getJwtMidW(email, userId);
+    req.session.token = getJwtMidW(email, systemUsersId);
 
     return res
       .status(200)

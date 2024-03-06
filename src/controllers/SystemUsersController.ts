@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 
-import { getUsers } from "@middleware/user/GetUsersMidW";
+import { getSystemUsersMidW } from "@middleware/systemUsers/GetSystemUsersMidW";
 
-export const retrieveUsers = async (req: Request, res: Response) => {
+export const getSystemUsers = async (req: Request, res: Response) => {
   try {
     // init user db repo
-    const results = await getUsers();
+    const results = await getSystemUsersMidW();
 
     res.status(200).json({ results: results });
   } catch (error) {

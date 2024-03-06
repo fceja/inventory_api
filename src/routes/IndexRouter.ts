@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 
-import authRouter from "@routes/auth/AuthRouter";
-import userRouter from "@routes/user/UserRouter";
+import systemAuthRouter from "@routes/auth/AuthRouter";
+import systemUsersRouter from "@routes/systemUsers/SystemUsersRouter";
 import productsRouter from "@routes/products/ProductsRouter";
 
 // init
@@ -32,8 +32,8 @@ indexRouter.get("/", (_req: Request, res: Response) => {
   }
 });
 
-indexRouter.use("/auth", authRouter);
-indexRouter.use("/user", userRouter);
+indexRouter.use("/systemAuth", systemAuthRouter);
+indexRouter.use("/systemUsers", systemUsersRouter);
 indexRouter.use("/products", productsRouter);
 
 export default indexRouter;

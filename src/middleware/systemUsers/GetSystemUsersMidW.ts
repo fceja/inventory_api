@@ -2,13 +2,13 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 
-export const getUsers = async () => {
+export const getSystemUsersMidW = async () => {
   let dbConn: PoolClient | null = null;
 
   try {
     const qResult = await connPool.query(`
         SELECT *
-        FROM users
+        FROM system_users
     `);
 
     return qResult.rows;

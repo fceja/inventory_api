@@ -1,19 +1,19 @@
 import express from "express";
 
-import * as AuthController from "@controllers/AuthController";
+import * as SystemAuthController from "@controllers/SystemAuthController";
 import refreshJwtMidW from "@middleware/jwt/RefreshJwtMidW";
 import validateJwtMidW from "@middleware/jwt/ValidateJwtMidW";
 
-const authRouter = express.Router();
+const systemAuthRouter = express.Router();
 
 // no auth required
-authRouter.get("/login", AuthController.login);
+systemAuthRouter.get("/systemLogin", SystemAuthController.systemLogin);
 
 // auth required
-authRouter.use(
+systemAuthRouter.use(
   "/testJwt",
   [validateJwtMidW, refreshJwtMidW],
-  AuthController.testJwtAuth,
+  SystemAuthController.testJwtAuth,
 );
 
-export default authRouter;
+export default systemAuthRouter;
