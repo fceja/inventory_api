@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 
-import systemAuthRouter from "@routes/auth/AuthRouter";
+import systemAuthRouter from "@routes/systemAuth/SystemAuthRouter";
 import systemUsersRouter from "@routes/systemUsers/SystemUsersRouter";
 import productsRouter from "@routes/products/ProductsRouter";
 

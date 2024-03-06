@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import { getJwtMidW } from "@middleware/jwt/GetJwtMidW";
 import SystemUsersModel from "@db/models/SystemUsersModel";
-import { validateSystemUserMidW } from "@middleware/systemUsers/ValidateSystemUserExistsMidW";
+import { authSystemUserMidW } from "@middleware/systemAuth/AuthSystemUserMidW";
 
 export const systemLogin = async (req: Request, res: Response) => {
   try {
@@ -10,7 +10,7 @@ export const systemLogin = async (req: Request, res: Response) => {
     const { email, password } = new SystemUsersModel(req.body);
 
     // verify valid user exists in db
-    const storedUser = await validateSystemUserMidW(email, password);
+    const storedUser = await authSystemUserMidW(email, password);
     if (!storedUser) throw Error("User does not exist.");
 
     // add user data to session

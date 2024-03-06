@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { getProductsMidW } from "@middleware/products/GetProductsMidw";
+import { getProductsMidW } from "@middleware/products/GetProductsMidW";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {

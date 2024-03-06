@@ -4,10 +4,7 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 
-export const validateSystemUserMidW = async (
-  email: string,
-  password: string,
-) => {
+export const authSystemUserMidW = async (email: string, password: string) => {
   let dbConn: PoolClient | null = null;
 
   try {
