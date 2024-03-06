@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 export default function requireAdminMidW(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   // verify user has admin role
   try {

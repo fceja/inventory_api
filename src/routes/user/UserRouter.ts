@@ -1,34 +1,19 @@
 import express from "express";
 
 import * as userController from "@controllers/UserController";
-// import refreshJwtTokenMidW from "@middleware/auth/RefreshJwtTokenMidW";
+import refreshJwtMidW from "@middleware/auth/jwt/RefreshJwtMidW";
 import requireAdminMidW from "@middleware/auth/RequireAdminMidW";
 import validateJwtMidW from "@middleware/auth/jwt/ValidateJwtMidW";
-import { userEmailDoesNotExistMW } from "@middleware/user/ValidateUserEmailMidW";
 
 const usersRouter = express.Router();
 
-// #region - AUTH REQ
+// region - AUTH REQ
 // GET
-// usersRouter.get(
-//   "/getUser",
-//   [validateJwtTokenMidW, refreshJwtTokenMidW],
-//   userController.getUser
-// );
-// usersRouter.get(
-//   "/getUsers",
-//   [requireAdminMidW, validateJwtTokenMidW, refreshJwtTokenMidW],
-//   userController.getUsers
-// );
-// #endregion - AUTH REQ
-
-// #region - NO AUTH REQ
-// POST
-usersRouter.post(
-  "/create",
-  [userEmailDoesNotExistMW],
-  userController.createUser
+usersRouter.get(
+  "/getUsers",
+  [validateJwtMidW, refreshJwtMidW, requireAdminMidW],
+  userController.retrieveUsers,
 );
-// #endregion - NO AUTH REQ
+// endregion - AUTH REQ
 
 export default usersRouter;
