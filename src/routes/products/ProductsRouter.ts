@@ -11,4 +11,10 @@ productsRouter.get(
   ProductsController.getProducts,
 );
 
+productsRouter.post(
+  "/create",
+  [validateJwtMidW, refreshJwtMidW],
+  ProductsController.createProducts,
+);
+
 export default productsRouter;
