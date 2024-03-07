@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 
 import { createProductsMidW } from "@middleware/products/CreateProductsMidW";
-import { getProductsMidW } from "@middleware/products/GetProductsMidW";
 import { deleteByProductsIdMidW } from "@middleware/products/DeleteByProductsIdMidW";
+import { getProductsMidW } from "@middleware/products/GetProductsMidW";
+import { ProductsModelI } from "@models/ProductsModel";
+import { updateByProductsIdMidW } from "@middleware/products/UpdateByProductsIdMidw";
 
 // CREATE operations
 export const createProducts = async (req: Request, res: Response) => {
@@ -37,6 +39,26 @@ export const deleteByProductsId = async (req: Request, res: Response) => {
     const { productsId } = req.params;
 
     const success = await deleteByProductsIdMidW(Number(productsId));
+
+    res.status(200).json({ results: [{ success: success }] });
+  } catch (error) {
+    console.error(error.message);
+
+    res.status(400).json({ results: [{ success: false }] });
+  }
+};
+
+// UPDATE operations
+export const updateByProductsId = async (req: Request, res: Response) => {
+  try {
+    const { productsId } = req.params;
+    const productsData: ProductsModelI = req.body;
+
+    const success = await updateByProductsIdMidW(
+      Number(productsId),
+      productsData,
+    );
+    if (!success) throw new Error("Error updating.");
 
     res.status(200).json({ results: [{ success: success }] });
   } catch (error) {

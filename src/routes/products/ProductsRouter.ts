@@ -23,4 +23,10 @@ productsRouter.delete(
   ProductsController.deleteByProductsId,
 );
 
+productsRouter.put(
+  "/:productsId",
+  [validateJwtMidW, refreshJwtMidW],
+  ProductsController.updateByProductsId,
+);
+
 export default productsRouter;
