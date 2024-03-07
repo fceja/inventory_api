@@ -1,9 +1,9 @@
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
-import ProductsModel from "@db/models/ProductsModel";
+import { ProductsModelI } from "@db/models/ProductsModel";
 
-export const createProductsMidW = async (productInfo: ProductsModel) => {
+export const createProductsMidW = async (productInfo: ProductsModelI) => {
   let dbConn: PoolClient | null = null;
 
   try {
