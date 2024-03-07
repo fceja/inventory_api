@@ -17,4 +17,10 @@ productsRouter.post(
   ProductsController.createProducts,
 );
 
+productsRouter.delete(
+  "/:productsId",
+  [validateJwtMidW, refreshJwtMidW],
+  ProductsController.deleteByProductsId,
+);
+
 export default productsRouter;
