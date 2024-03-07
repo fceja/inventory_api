@@ -53,7 +53,7 @@ export const createProductsMidW = async (productInfo: ProductsModel) => {
 
     throw new Error("Error inserting.");
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
     return false;
   } finally {

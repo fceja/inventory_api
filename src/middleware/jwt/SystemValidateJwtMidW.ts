@@ -13,7 +13,7 @@ const decodeJwtToken = (req: Request) => {
 
     return decodedToken;
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
     return null;
   }
@@ -39,7 +39,7 @@ const validateJwt = (
 
     throw new Error("Invalid jwt");
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return false;
   }
 };
@@ -66,18 +66,21 @@ const validateJwtMidW = (
   next: NextFunction,
 ): Response | NextFunction | void => {
   try {
+    if (!req.session.systemUser || !req.session.systemUser.token)
+      throw new Error("Session jwt does not exist.");
+
     // decode session jwt token
     const decodedJwtToken = decodeJwtToken(req);
     if (!decodedJwtToken) throw new Error("Error decoding.");
 
     // validate session jwt token
     const isJwtTokenValid = validateJwt(req, decodedJwtToken);
-    if (!isJwtTokenValid) throw new Error("Invalid jwt.");
+    if (!isJwtTokenValid) throw new Error("Invalid session jwt.");
 
     // jwt is valid, invoke next
     return next();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
     return res.status(401).send({
       results: "Invalid user",

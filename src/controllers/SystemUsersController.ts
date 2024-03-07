@@ -7,10 +7,10 @@ export const getSystemUsers = async (req: Request, res: Response) => {
     // init user db repo
     const results = await getSystemUsersMidW();
 
-    res.status(200).json({ results: results });
+    res.status(200).json({ results: [{ systemUsers: results }] });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
-    res.status(400).json(console.error(error));
+    res.status(400).json({ results: [{ status: false }] });
   }
 };

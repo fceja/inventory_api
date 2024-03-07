@@ -24,7 +24,7 @@ export const systemLogin = async (req: Request, res: Response) => {
       .status(200)
       .json({ results: `TODO - valid user -> ${storedUser}` });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return res.status(401).json({ results: "Not authorized." });
   }
 };

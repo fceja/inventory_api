@@ -24,7 +24,7 @@ const refreshJwtMidW = (req: Request, _res: Response, next: NextFunction) => {
     // pass request to next function
     next();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
     return null;
   }

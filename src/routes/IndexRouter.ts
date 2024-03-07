@@ -28,7 +28,7 @@ indexRouter.get("/", (_req: Request, res: Response) => {
   try {
     res.status(200).json({ results: "public - index" });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
   }
 });
 

@@ -14,7 +14,7 @@ export default function requireAdminMidW(
     // user is authorized, pass request to next function
     next();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return res.status(401).send({ results: "Not authorized." });
   }
 }

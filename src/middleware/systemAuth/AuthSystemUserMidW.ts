@@ -34,7 +34,7 @@ export const authSystemUserMidW = async (email: string, password: string) => {
 
     return storedUserInfo;
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
     return null;
   } finally {

@@ -11,7 +11,7 @@ export const createProducts = async (req: Request, res: Response) => {
 
     res.status(200).json({ results: [{ status: true }] });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
     res.status(400).json({ results: [{ status: false }] });
   }
@@ -22,10 +22,10 @@ export const getProducts = async (_req: Request, res: Response) => {
   try {
     const results = await getProductsMidW();
 
-    res.status(200).json({ results: results });
+    res.status(200).json({ results: [{ products: results }] });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
-    res.status(400).json(console.error(error));
+    res.status(400).json({ results: [{ status: false }] });
   }
 };

@@ -13,7 +13,7 @@ export const getSystemUsersMidW = async () => {
 
     return qResult.rows;
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
     return null;
   } finally {
