@@ -5,6 +5,27 @@ import SystemLoginUserModel from "@db/models/SystemLoginUserModel";
 import SystemStoredUserModel from "@db/models/SystemStoredUserModel";
 import { authSystemUserMidW } from "@middleware/systemAuth/AuthSystemUserMidW";
 
+// helper
+const addSystemUserInfoToSession = (
+  req: Request,
+  storedUser: SystemStoredUserModel,
+) => {
+  req.session.systemUser = {
+    systemUsersId: null,
+    email: "",
+    role: "",
+    token: "",
+  };
+
+  req.session.systemUser.systemUsersId = storedUser.systemUsersId;
+  req.session.systemUser.email = storedUser.email;
+  req.session.systemUser.role = storedUser.role;
+  req.session.systemUser.token = getJwtMidW(
+    storedUser.email,
+    storedUser.systemUsersId,
+  );
+};
+
 export const systemLogin = async (req: Request, res: Response) => {
   try {
     // parse data from payload body, for user attempting to login with system access
@@ -33,24 +54,4 @@ export const testJwtAuth = (_req: Request, res: Response) => {
   return res.send({
     results: `Jwt is valid`,
   });
-};
-
-const addSystemUserInfoToSession = (
-  req: Request,
-  storedUser: SystemStoredUserModel,
-) => {
-  req.session.systemUser = {
-    systemUsersId: null,
-    email: "",
-    role: "",
-    token: "",
-  };
-
-  req.session.systemUser.systemUsersId = storedUser.systemUsersId;
-  req.session.systemUser.email = storedUser.email;
-  req.session.systemUser.role = storedUser.role;
-  req.session.systemUser.token = getJwtMidW(
-    storedUser.email,
-    storedUser.systemUsersId,
-  );
 };
