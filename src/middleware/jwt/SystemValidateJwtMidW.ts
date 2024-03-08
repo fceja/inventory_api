@@ -82,9 +82,7 @@ const validateJwtMidW = (
   } catch (error) {
     console.error(error.message);
 
-    return res.status(401).send({
-      results: "Invalid user",
-    });
+    return res.status(401).send({ success: false, message: "Unauthorized" });
   }
 };
 
