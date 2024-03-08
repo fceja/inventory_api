@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import Joi from "joi";
 
 import { createProductsMidW } from "@middleware/products/CreateProductsMidW";
 import { deleteByProductsIdMidW } from "@middleware/products/DeleteByProductsIdMidW";
