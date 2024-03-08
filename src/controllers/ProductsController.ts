@@ -55,11 +55,8 @@ export const deleteByProductsId = async (req: Request, res: Response) => {
   try {
     const { productsId } = req.params;
 
-    const success = await updateByProductsIdMidW(
-      parseInt(req.params.productsId),
-      req.body,
-    );
-    if (!success) throw new Error("Error updating.");
+    const success = await deleteByProductsIdMidW(Number(productsId));
+    if (!success) throw new Error("Error deleting.");
 
     res.status(200).json({ success: true });
   } catch (error) {

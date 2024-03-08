@@ -31,7 +31,7 @@ productsRouter.put(
 // DELETE operations
 productsRouter.delete(
   "/:productsId",
-  [validateJwtMidW, refreshJwtMidW, validateProductsModel],
+  [validateJwtMidW, refreshJwtMidW],
   ProductsController.deleteByProductsId,
 );
 

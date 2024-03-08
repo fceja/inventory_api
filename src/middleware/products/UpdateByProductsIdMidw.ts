@@ -6,7 +6,7 @@ import { ProductsModelI } from "@models/ProductsModel";
 
 // helper
 const generateQuery = (productsId: number, productsData: ProductsModelI) => {
-  // generate SET clause and params for query
+  // generate sql query statement
   const setClausePairs = [];
   const queryParams = [];
   Object.entries(productsData).forEach(([key]) => {

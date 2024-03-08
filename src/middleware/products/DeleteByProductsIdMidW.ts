@@ -6,13 +6,14 @@ export const deleteByProductsIdMidW = async (productsId: number) => {
   let dbConn: PoolClient | null = null;
 
   try {
-    const result = await connPool.query(`
-        DELETE FROM products A
-        WHERE A.products_id = ${productsId}
-    `);
+    const query = `
+      DELETE FROM products A
+      WHERE A.products_id = ${productsId}
+    `;
 
-    if (result.rowCount == 0)
-      throw new Error(`Record with productsId ${productsId} did not exist.`);
+    const result = await connPool.query(query);
+
+    if (result.rowCount == 0) throw new Error(`Db error.\nquery -> ${query}`);
 
     return true;
   } catch (error) {
