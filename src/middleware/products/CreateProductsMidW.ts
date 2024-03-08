@@ -45,7 +45,9 @@ export const createProductsMidW = async (productsData: ProductsModelI) => {
 
     if (qResult.rowCount == 1) return true;
 
-    throw new Error("Error creating.");
+    throw new Error(
+      `Db error.\nquery -> ${query}\nqueryParams -> ${queryParams}`,
+    );
   } catch (error) {
     console.error(error.message);
 

@@ -43,7 +43,7 @@ export const updateByProductsIdMidW = async (
     // verify results
     if (qResult.rowCount != 1)
       throw new Error(
-        `Error updating record. 'productsId' ${productsId}, 'rowCount' ${qResult.rowCount}`,
+        `Db error.\nquery -> ${query}\nqueryParams -> ${queryParams}`,
       );
 
     return true;
