@@ -43,15 +43,17 @@ export const systemLogin = async (req: Request, res: Response) => {
 
     return res
       .status(200)
-      .json({ results: `TODO - valid user -> ${storedUser}` });
+      .json({ success: true, message: `TODO - valid user -> ${storedUser}` });
   } catch (error) {
     console.error(error.message);
-    return res.status(401).json({ results: "Not authorized." });
+
+    return res.status(401).json({ success: false, message: "Not authorized." });
   }
 };
 
-export const testJwtAuth = (_req: Request, res: Response) => {
-  return res.send({
-    results: `Jwt is valid`,
+export const testJwtAuth = (res: Response) => {
+  return res.status(200).json({
+    success: true,
+    message: `Jwt is valid`,
   });
 };

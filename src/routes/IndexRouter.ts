@@ -24,7 +24,7 @@ const indexRouter = express.Router();
  *                 results:
  *                   type: string
  */
-indexRouter.get("/", (_req: Request, res: Response) => {
+indexRouter.get("/", (res: Response) => {
   try {
     res.status(200).json({ success: true, message: "Public endpoint." });
   } catch (error) {

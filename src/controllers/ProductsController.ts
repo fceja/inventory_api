@@ -9,7 +9,7 @@ import { updateByProductsIdMidW } from "@middleware/products/UpdateByProductsIdM
 export const createProducts = async (req: Request, res: Response) => {
   try {
     const success = await createProductsMidW(req.body);
-    if (!success) throw new Error("Error creating.");
+    if (!success) throw new Error("Error creating products.");
 
     res.status(200).json({ success: true });
   } catch (error) {
@@ -20,10 +20,10 @@ export const createProducts = async (req: Request, res: Response) => {
 };
 
 // READ operations
-export const getProducts = async (_req: Request, res: Response) => {
+export const getProducts = async (res: Response) => {
   try {
     const results = await getProductsMidW();
-    if (!results) throw new Error("Error getting.");
+    if (!results) throw new Error("Error getting products.");
 
     res.status(200).json({ success: true, data: { products: results } });
   } catch (error) {
@@ -40,13 +40,13 @@ export const updateByProductsId = async (req: Request, res: Response) => {
       parseInt(req.params.productsId),
       req.body,
     );
-    if (!success) throw new Error("Error updating.");
+    if (!success) throw new Error("Error updating products.");
 
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error.message);
 
-    res.status(400).json({ success: false, message: "Internal server error." });
+    res.status(500).json({ success: false, message: "Internal server error." });
   }
 };
 
@@ -56,12 +56,12 @@ export const deleteByProductsId = async (req: Request, res: Response) => {
     const { productsId } = req.params;
 
     const success = await deleteByProductsIdMidW(Number(productsId));
-    if (!success) throw new Error("Error deleting.");
+    if (!success) throw new Error("Error deleting products.");
 
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error.message);
 
-    res.status(400).json({ success: false, message: "Internal server error." });
+    res.status(500).json({ success: false, message: "Internal server error." });
   }
 };
