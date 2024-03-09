@@ -12,7 +12,7 @@ const systemUsersRouter = express.Router();
 systemUsersRouter.get(
   "/",
   [validateJwtMidW, refreshJwtMidW, requireAdminMidW],
-  SystemUsersController.getSystemUsers,
+  SystemUsersController.getAllSystemUsers,
 );
 // endregion - AUTH REQ
 

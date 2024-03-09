@@ -2,13 +2,13 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 
-export const deleteByProductsIdMidW = async (productsId: number) => {
+export const deleteByProductIdMidW = async (productId: number) => {
   let dbConn: PoolClient | null = null;
 
   try {
     const query = `
       DELETE FROM products A
-      WHERE A.products_id = ${productsId}
+      WHERE A.product_id = ${productId}
     `;
 
     const result = await connPool.query(query);

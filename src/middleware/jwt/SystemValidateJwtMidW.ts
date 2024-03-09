@@ -26,7 +26,7 @@ const validateJwt = (
   try {
     if (decodedJwtToken instanceof Object) {
       assert(
-        decodedJwtToken.userId === req.session.systemUser.systemUsersId,
+        decodedJwtToken.userId === req.session.systemUser.systemUserId,
         "Expected id's to match but did not.",
       );
       assert(

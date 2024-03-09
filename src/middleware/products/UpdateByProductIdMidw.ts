@@ -5,37 +5,37 @@ import { connPool } from "@db/DbPoolClient";
 import { ProductsModelI } from "@models/ProductsModel";
 
 // helper
-const generateQuery = (productsId: number, productsData: ProductsModelI) => {
+const generateQuery = (productId: number, productData: ProductsModelI) => {
   // generate sql query statement
   const setClausePairs = [];
   const queryParams = [];
-  Object.entries(productsData).forEach(([key]) => {
+  Object.entries(productData).forEach(([key]) => {
     setClausePairs.push(` ${key}=$${queryParams.length + 1}`);
-    queryParams.push(productsData[key]);
+    queryParams.push(productData[key]);
   });
 
   const querySetClause = setClausePairs.join(", ");
-  queryParams.push(productsId);
+  queryParams.push(productId);
 
   // final query
   const query = `
     UPDATE products A
     SET ${querySetClause}, updated_at = CURRENT_TIMESTAMP
-    WHERE A.products_id = $${queryParams.length}
+    WHERE A.product_id = $${queryParams.length}
   `;
 
   return { query: query, queryParams: queryParams };
 };
 
-export const updateByProductsIdMidW = async (
-  productsId: number,
-  productsData: ProductsModelI,
+export const updateByProductIdMidW = async (
+  productId: number,
+  productData: ProductsModelI,
 ) => {
   let dbConn: PoolClient | null = null;
 
   try {
     // generate query
-    const { query, queryParams } = generateQuery(productsId, productsData);
+    const { query, queryParams } = generateQuery(productId, productData);
 
     // query db
     const qResult = await connPool.query(query, queryParams);

@@ -11,28 +11,28 @@ const productsRouter = express.Router();
 productsRouter.post(
   "/create",
   [validateJwtMidW, refreshJwtMidW, validateProductsModel],
-  ProductsController.createProducts,
+  ProductsController.createProduct,
 );
 
 // READ operations
 productsRouter.get(
   "/",
   [validateJwtMidW, refreshJwtMidW],
-  ProductsController.getProducts,
+  ProductsController.getAllProducts,
 );
 
 // UPDATE operations
 productsRouter.put(
-  "/:productsId",
+  "/:productId",
   [validateJwtMidW, refreshJwtMidW, validateProductsModel],
-  ProductsController.updateByProductsId,
+  ProductsController.updateByProductId,
 );
 
 // DELETE operations
 productsRouter.delete(
-  "/:productsId",
+  "/:productId",
   [validateJwtMidW, refreshJwtMidW],
-  ProductsController.deleteByProductsId,
+  ProductsController.deleteByProductId,
 );
 
 export default productsRouter;

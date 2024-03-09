@@ -2,7 +2,7 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 
-export const getSystemUsersMidW = async () => {
+export const getAllSystemUsersMidW = async () => {
   let dbConn: PoolClient | null = null;
 
   try {

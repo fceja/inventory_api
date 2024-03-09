@@ -4,42 +4,35 @@ import { connPool } from "@db/DbPoolClient";
 import { ProductsModelI } from "@db/models/ProductsModel";
 import { camelToSnake } from "@utils/StringUtils";
 
-const generateQuery = (productsData: ProductsModelI) => {
+const generateQuery = (productData: ProductsModelI) => {
   // generate sql query statement
-  const productsProps = [];
+  const productProps = [];
   const valuesClause = [];
   const queryParams = [];
-  Object.entries(productsData).forEach(([key]) => {
+  Object.entries(productData).forEach(([key]) => {
     const snakeCaseString = camelToSnake(key);
-    productsProps.push(snakeCaseString);
+    productProps.push(snakeCaseString);
     valuesClause.push(`$${queryParams.length + 1}`);
-    queryParams.push(productsData[key]);
+    queryParams.push(productData[key]);
   });
 
   const querySetClause = valuesClause.join(", ");
-  const queryProductsProps = productsProps.join(", ");
+  const queryProductProps = productProps.join(", ");
 
   // final query
   const query = `
-    INSERT INTO products (${queryProductsProps})
+    INSERT INTO products (${queryProductProps})
     VALUES (${querySetClause})
   `;
 
   return { query: query, queryParams: queryParams };
 };
 
-export const createProductsMidW = async (productsData: ProductsModelI) => {
+export const createProductMidW = async (productData: ProductsModelI) => {
   let dbConn: PoolClient | null = null;
 
   try {
-    /**
-     * NOTE - the following are generated automatically by db
-     * product_id
-     * created_at,
-     * updated_at,
-     */
-
-    const { query, queryParams } = generateQuery(productsData);
+    const { query, queryParams } = generateQuery(productData);
 
     const qResult = await connPool.query(query, queryParams);
 

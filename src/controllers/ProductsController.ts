@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 
-import { createProductsMidW } from "@middleware/products/CreateProductsMidW";
-import { deleteByProductsIdMidW } from "@middleware/products/DeleteByProductsIdMidW";
-import { getProductsMidW } from "@middleware/products/GetProductsMidW";
-import { updateByProductsIdMidW } from "@middleware/products/UpdateByProductsIdMidw";
+import { createProductMidW } from "@middleware/products/CreateProductMidW";
+import { deleteByProductIdMidW } from "@middleware/products/DeleteByProductIdMidW";
+import { getAllProductsMidW } from "@middleware/products/GetAllProductsMidW";
+import { updateByProductIdMidW } from "@middleware/products/UpdateByProductIdMidw";
 
 // CREATE operations
-export const createProducts = async (req: Request, res: Response) => {
+export const createProduct = async (req: Request, res: Response) => {
   try {
-    const success = await createProductsMidW(req.body);
-    if (!success) throw new Error("Error creating products.");
+    const success = await createProductMidW(req.body);
+    if (!success) throw new Error("Error creating product.");
 
     res.status(200).json({ success: true });
   } catch (error) {
@@ -20,9 +20,9 @@ export const createProducts = async (req: Request, res: Response) => {
 };
 
 // READ operations
-export const getProducts = async (res: Response) => {
+export const getAllProducts = async (_req: Request, res: Response) => {
   try {
-    const results = await getProductsMidW();
+    const results = await getAllProductsMidW();
     if (!results) throw new Error("Error getting products.");
 
     res.status(200).json({ success: true, data: { products: results } });
@@ -34,13 +34,13 @@ export const getProducts = async (res: Response) => {
 };
 
 // UPDATE operations
-export const updateByProductsId = async (req: Request, res: Response) => {
+export const updateByProductId = async (req: Request, res: Response) => {
   try {
-    const success = await updateByProductsIdMidW(
-      parseInt(req.params.productsId),
+    const success = await updateByProductIdMidW(
+      parseInt(req.params.productId),
       req.body,
     );
-    if (!success) throw new Error("Error updating products.");
+    if (!success) throw new Error("Error updating product.");
 
     res.status(200).json({ success: true });
   } catch (error) {
@@ -51,12 +51,12 @@ export const updateByProductsId = async (req: Request, res: Response) => {
 };
 
 // DELETE operations
-export const deleteByProductsId = async (req: Request, res: Response) => {
+export const deleteByProductId = async (req: Request, res: Response) => {
   try {
-    const { productsId } = req.params;
+    const { productId } = req.params;
 
-    const success = await deleteByProductsIdMidW(Number(productsId));
-    if (!success) throw new Error("Error deleting products.");
+    const success = await deleteByProductIdMidW(Number(productId));
+    if (!success) throw new Error("Error deleting product.");
 
     res.status(200).json({ success: true });
   } catch (error) {

@@ -18,7 +18,7 @@ const refreshJwtMidW = (req: Request, _res: Response, next: NextFunction) => {
     // apply new jwt token to session
     req.session.systemUser.token = getJwtMidW(
       req.session.systemUser.email,
-      req.session.systemUser.systemUsersId,
+      req.session.systemUser.systemUserId,
     );
 
     // pass request to next function

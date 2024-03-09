@@ -11,18 +11,18 @@ const addSystemUserInfoToSession = (
   storedUser: SystemStoredUserModel,
 ) => {
   req.session.systemUser = {
-    systemUsersId: null,
+    systemUserId: null,
     email: "",
     role: "",
     token: "",
   };
 
-  req.session.systemUser.systemUsersId = storedUser.systemUsersId;
+  req.session.systemUser.systemUserId = storedUser.systemUserId;
   req.session.systemUser.email = storedUser.email;
   req.session.systemUser.role = storedUser.role;
   req.session.systemUser.token = getJwtMidW(
     storedUser.email,
-    storedUser.systemUsersId,
+    storedUser.systemUserId,
   );
 };
 
@@ -51,7 +51,7 @@ export const systemLogin = async (req: Request, res: Response) => {
   }
 };
 
-export const testJwtAuth = (res: Response) => {
+export const testJwtAuth = (_req: Request, res: Response) => {
   return res.status(200).json({
     success: true,
     message: `Jwt is valid`,

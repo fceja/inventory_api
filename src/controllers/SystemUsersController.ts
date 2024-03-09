@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
-import { getSystemUsersMidW } from "@middleware/systemUsers/GetSystemUsersMidW";
+import { getAllSystemUsersMidW } from "@middleware/systemUsers/GetAllSystemUsersMidW";
 
-export const getSystemUsers = async (req: Request, res: Response) => {
+export const getAllSystemUsers = async (req: Request, res: Response) => {
   try {
-    const results = await getSystemUsersMidW();
+    const results = await getAllSystemUsersMidW();
 
     res.status(200).json({ success: true, data: { systemUsers: results } });
   } catch (error) {
