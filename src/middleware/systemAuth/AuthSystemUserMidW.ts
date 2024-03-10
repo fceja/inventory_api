@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
-import SystemStoredUserModel from "@db/models/SystemStoredUserModel";
+import { SystemStoredUserModelI } from "@db/models/SystemStoredUserModel";
 
 export const authSystemUserMidW = async (email: string, password: string) => {
   let dbConn: PoolClient | null = null;
@@ -11,14 +11,16 @@ export const authSystemUserMidW = async (email: string, password: string) => {
   try {
     dbConn = await connPool.connect();
 
-    const qResult = await dbConn.query(`
+    const query = `
       SELECT *
       FROM system_users A
       WHERE A.email='${email}'
-    `);
+    `;
+    const qResult = await dbConn.query(query);
+    if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
 
-    const storedUser = qResult.rows[0];
-    if (!storedUser) return null;
+    const storedUser: SystemStoredUserModelI = qResult.rows[0];
+    if (!storedUser) throw new Error(`System user does not exist.`);
 
     const validRoles = ["admin", "mngr", "staff"];
     assert.ok(
@@ -30,9 +32,7 @@ export const authSystemUserMidW = async (email: string, password: string) => {
     if (!bcrypt.compareSync(password, storedUser.password))
       throw new Error("Invalid password.");
 
-    const storedUserInfo = new SystemStoredUserModel(storedUser);
-
-    return storedUserInfo;
+    return storedUser;
   } catch (error) {
     console.error(error.message);
 

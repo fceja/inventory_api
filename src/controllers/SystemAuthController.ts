@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 
 import { getJwtMidW } from "@middleware/jwt/SystemGetJwtMidW";
 import SystemLoginUserModel from "@db/models/SystemLoginUserModel";
-import SystemStoredUserModel from "@db/models/SystemStoredUserModel";
 import { authSystemUserMidW } from "@middleware/systemAuth/AuthSystemUserMidW";
+import { SystemStoredUserModelI } from "@db/models/SystemStoredUserModel";
 
 // helper
 const addSystemUserInfoToSession = (
   req: Request,
-  storedUser: SystemStoredUserModel,
+  storedUser: SystemStoredUserModelI,
 ) => {
   req.session.systemUser = {
     systemUserId: null,
@@ -32,10 +32,7 @@ export const systemLogin = async (req: Request, res: Response) => {
     const { email, password } = new SystemLoginUserModel(req.body);
 
     // verify a valid system user exists in db
-    const storedUser: SystemStoredUserModel = await authSystemUserMidW(
-      email,
-      password,
-    );
+    const storedUser = await authSystemUserMidW(email, password);
     if (!storedUser) throw Error("System user error.");
 
     // add system user data to session

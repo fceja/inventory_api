@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from "express";
 
 import CONFIG_FILE from "@configs/Config";
 
+// helpers
 const decodeJwtToken = (req: Request) => {
   try {
     const decodedToken = jwt.verify(
