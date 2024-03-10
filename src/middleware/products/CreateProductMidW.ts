@@ -36,11 +36,12 @@ export const createProductMidW = async (productData: ProductsModelI) => {
 
     const qResult = await connPool.query(query, queryParams);
 
-    if (qResult.rowCount == 1) return true;
+    if (!qResult)
+      throw new Error(
+        `Db error.\nquery -> ${query}\nqueryParams -> ${queryParams}`,
+      );
 
-    throw new Error(
-      `Db error.\nquery -> ${query}\nqueryParams -> ${queryParams}`,
-    );
+    return qResult.rowCount === 1 ? true : false;
   } catch (error) {
     console.error(error.message);
 

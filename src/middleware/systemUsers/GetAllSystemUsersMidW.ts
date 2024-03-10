@@ -6,10 +6,13 @@ export const getAllSystemUsersMidW = async () => {
   let dbConn: PoolClient | null = null;
 
   try {
-    const qResult = await connPool.query(`
-        SELECT *
-        FROM system_users
-    `);
+    const query = `
+      SELECT *
+      FROM system_users
+    `;
+    const qResult = await connPool.query(query);
+
+    if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
 
     return qResult.rows;
   } catch (error) {

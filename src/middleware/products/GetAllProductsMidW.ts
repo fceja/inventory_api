@@ -12,9 +12,7 @@ export const getAllProductsMidW = async () => {
 
     const qResult = await connPool.query(query);
 
-    if (!qResult.rows) {
-      throw new Error(`Db error.\nquery -> ${query}`);
-    }
+    if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
 
     return qResult.rows;
   } catch (error) {

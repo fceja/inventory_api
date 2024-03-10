@@ -40,8 +40,7 @@ export const updateByProductIdMidW = async (
     // query db
     const qResult = await connPool.query(query, queryParams);
 
-    // verify results
-    if (qResult.rowCount != 1)
+    if (qResult.rowCount !== 1)
       throw new Error(
         `Db error.\nquery -> ${query}\nqueryParams -> ${queryParams}`,
       );

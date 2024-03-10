@@ -11,9 +11,10 @@ export const deleteByProductIdMidW = async (productId: number) => {
       WHERE A.product_id = ${productId}
     `;
 
-    const result = await connPool.query(query);
+    const qResult = await connPool.query(query);
 
-    if (result.rowCount == 0) throw new Error(`Db error.\nquery -> ${query}`);
+    if (!qResult || qResult.rowCount === 0)
+      throw new Error(`Db error.\nquery -> ${query}`);
 
     return true;
   } catch (error) {
