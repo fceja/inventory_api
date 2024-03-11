@@ -2,14 +2,12 @@ import assert from "assert";
 import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 
-import CONFIG_FILE from "@configs/Config";
-
 // helpers
 const decodeJwtToken = (req: Request) => {
   try {
     const decodedToken = jwt.verify(
       req.session.systemUser.token,
-      CONFIG_FILE.SYSTEM_JWT_SECRET_KEY,
+      process.env.SYSTEM_JWT_SECRET_KEY,
     );
 
     return decodedToken;

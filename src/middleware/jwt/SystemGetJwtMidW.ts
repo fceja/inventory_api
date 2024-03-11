@@ -1,7 +1,5 @@
 import jwt from "jsonwebtoken";
 
-import CONFIG_FILE from "@configs/Config";
-
 /**
  *
  * @param {string} email - user email.
@@ -19,13 +17,13 @@ export const getJwtMidW = (email: string, userId: number) => {
     userId: userId,
   };
   const jwtSignOptions = {
-    expiresIn: parseInt(CONFIG_FILE.SYSTEM_JWT_TOKEN_EXPIRY),
+    expiresIn: parseInt(process.env.SYSTEM_JWT_TOKEN_EXPIRY),
   };
 
   // generate jwt token with expiry
   const jwtToken = jwt.sign(
     jwtSignPayload,
-    CONFIG_FILE.SYSTEM_JWT_SECRET_KEY,
+    process.env.SYSTEM_JWT_SECRET_KEY,
     jwtSignOptions,
   );
 

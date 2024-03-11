@@ -1,16 +1,19 @@
 import bodyParser from "body-parser";
 import cors from "cors";
+import dotenv from "dotenv";
 import express, { Application } from "express";
 import session from "express-session";
 import swaggerUi from "swagger-ui-express";
 
-import CONFIG_FILE from "@configs/Config";
+// apply env vars
+dotenv.config({ path: ".env.sample" });
+
 import _Request from "@appTypes/CustomExpress";
 import indexRouter from "@routes/IndexRouter";
 import { swaggerConfig } from "@configs/SwaggerConfig";
 
 // init
-const port = CONFIG_FILE.SERVER_PORT;
+const port = process.env.SERVER_PORT;
 const app: Application = express();
 
 // middleware
@@ -20,7 +23,7 @@ app.use(cors());
 app.use(
   session({
     name: "app-session",
-    secret: CONFIG_FILE.SESSION_COOKIE_SECRET_KEY,
+    secret: process.env.SESSION_COOKIE_SECRET_KEY,
     resave: false,
     saveUninitialized: false,
   }),
