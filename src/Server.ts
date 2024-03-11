@@ -1,13 +1,10 @@
 import bodyParser from "body-parser";
 import cors from "cors";
-import dotenv from "dotenv";
 import express, { Application } from "express";
 import session from "express-session";
 import swaggerUi from "swagger-ui-express";
 
-// apply env vars
-dotenv.config({ path: ".env.sample" });
-
+import "@configs/EnvConfig";
 import _Request from "@appTypes/CustomExpress";
 import indexRouter from "@routes/IndexRouter";
 import { swaggerConfig } from "@configs/SwaggerConfig";
