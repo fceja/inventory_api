@@ -7,6 +7,7 @@ import validateProductsModel from "@middleware/modelValidation/ValidateProductsM
 
 const productsRouter = express.Router();
 
+// auth required
 // CREATE operations
 productsRouter.post(
   "/create",

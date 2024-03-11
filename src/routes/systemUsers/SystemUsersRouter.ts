@@ -7,13 +7,11 @@ import validateJwtMidW from "@middleware/jwt/SystemValidateJwtMidW";
 
 const systemUsersRouter = express.Router();
 
-// region - AUTH REQ
-// GET
+// auth required, admin required
 systemUsersRouter.get(
   "/",
   [validateJwtMidW, refreshJwtMidW, requireAdminMidW],
   SystemUsersController.getAllSystemUsers,
 );
-// endregion - AUTH REQ
 
 export default systemUsersRouter;
