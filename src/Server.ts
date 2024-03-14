@@ -12,11 +12,16 @@ import { swaggerConfig } from "@configs/SwaggerConfig";
 // init
 const port = process.env.SERVER_PORT;
 const app: Application = express();
+const corsOptions = {
+  origin: "",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+};
 
 // middleware
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(
   session({
     name: "app-session",
