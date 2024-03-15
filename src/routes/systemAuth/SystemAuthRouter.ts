@@ -7,7 +7,7 @@ import validateJwtMidW from "@middleware/jwt/SystemValidateJwtMidW";
 const systemAuthRouter = express.Router();
 
 // no auth required
-systemAuthRouter.get("/systemLogin", SystemAuthController.systemLogin);
+systemAuthRouter.post("/systemLogin", SystemAuthController.systemLogin);
 
 // auth required
 systemAuthRouter.use(
