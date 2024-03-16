@@ -12,8 +12,9 @@ import { swaggerConfig } from "@configs/SwaggerConfig";
 // init
 const port = process.env.SERVER_PORT;
 const app: Application = express();
+
 const corsOptions = {
-  origin: "",
+  origin: process.env.CORS_ORIGIN,
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
 };
