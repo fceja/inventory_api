@@ -33,7 +33,7 @@ app.use(
 );
 
 // routes
-app.use("/api", indexRouter);
+app.use("/api/v1", indexRouter);
 
 // serve
 app.listen(port, () => {
