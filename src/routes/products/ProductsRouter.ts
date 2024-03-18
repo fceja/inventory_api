@@ -10,7 +10,7 @@ const productsRouter = express.Router();
 // auth required
 // CREATE operations
 productsRouter.post(
-  "/create",
+  "/",
   [validateJwtMidW, refreshJwtMidW, validateProductsModel],
   ProductsController.createProduct,
 );
