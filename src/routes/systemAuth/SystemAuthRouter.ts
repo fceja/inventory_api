@@ -10,7 +10,7 @@ const systemAuthRouter = express.Router();
 systemAuthRouter.post("/systemLogin", SystemAuthController.systemLogin);
 
 // auth required
-systemAuthRouter.use(
+systemAuthRouter.get(
   "/testJwt",
   [validateJwtMidW, refreshJwtMidW],
   SystemAuthController.testJwtAuth,
