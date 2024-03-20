@@ -1,44 +1,20 @@
-import assert from "assert";
-import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
+import jwt, { Algorithm, JwtPayload } from "jsonwebtoken";
 
-// helpers
-const decodeJwtToken = (req: Request) => {
+// helper
+const decodeAndValidate = (jwtToken: string) => {
+  const decodedToken = jwt.decode(jwtToken, { complete: true });
+
+  // verify signature and expiry
   try {
-    const decodedToken = jwt.verify(
-      req.session.systemUser.token,
-      process.env.SYSTEM_JWT_SECRET_KEY,
-    );
+    jwt.verify(jwtToken, process.env.SYSTEM_JWT_SECRET_KEY, {
+      algorithms: [decodedToken.header.alg as Algorithm],
+    });
 
-    return decodedToken;
+    return true;
   } catch (error) {
     console.error(error.message);
 
-    return null;
-  }
-};
-
-const validateJwt = (
-  req: Request,
-  decodedJwtToken: string | jwt.JwtPayload,
-) => {
-  try {
-    if (decodedJwtToken instanceof Object) {
-      assert(
-        decodedJwtToken.userId === req.session.systemUser.systemUserId,
-        "Expected id's to match but did not.",
-      );
-      assert(
-        decodedJwtToken.email === req.session.systemUser.email,
-        "Expected emails's to match but did not.",
-      );
-
-      return true;
-    }
-
-    throw new Error("Invalid jwt");
-  } catch (error) {
-    console.error(error.message);
     return false;
   }
 };
@@ -52,7 +28,7 @@ const validateJwt = (
  * @returns {Response|NextFunction|void}
  *
  * @description
- * - Decodes and Verifies that the session JWT token is valid.
+ * - Decodes and verifies JWT token is valid.
  *  - If invalid
  *    - {Response} - returns error status.
  *  - If valid
@@ -65,18 +41,16 @@ const validateJwtMidW = (
   next: NextFunction,
 ): Response | NextFunction | void => {
   try {
-    if (!req.session.systemUser || !req.session.systemUser.token)
-      throw new Error("Session jwt does not exist.");
+    // parse jwt token from request headers
+    const jwtToken = req.headers["jwt-token"] as string;
+    if (!jwtToken) {
+      throw new Error("Jwt token does not exist.");
+    }
 
-    // decode session jwt token
-    const decodedJwtToken = decodeJwtToken(req);
-    if (!decodedJwtToken) throw new Error("Error decoding.");
+    // decode and validate jwt token
+    const valid = decodeAndValidate(jwtToken);
+    if (!valid) throw new Error("Invalid jwt token.");
 
-    // validate session jwt token
-    const isJwtTokenValid = validateJwt(req, decodedJwtToken);
-    if (!isJwtTokenValid) throw new Error("Invalid session jwt.");
-
-    // jwt is valid, invoke next
     return next();
   } catch (error) {
     console.error(error.message);

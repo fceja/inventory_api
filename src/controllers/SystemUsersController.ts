@@ -6,7 +6,7 @@ export const getAllSystemUsers = async (req: Request, res: Response) => {
   try {
     const results = await getAllSystemUsersMidW();
 
-    res.status(200).json({ success: true, data: { systemUsers: results } });
+    res.status(200).json({ success: true, systemUsers: results });
   } catch (error) {
     console.error(error.message);
 

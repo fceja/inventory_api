@@ -1,20 +1,23 @@
 import jwt from "jsonwebtoken";
 
+import { SystemUserModelI } from "@db/models/SystemUserModel";
+
+// TODO - refactor to consider system and customer
 /**
  *
- * @param {string} email - user email.
- * @param {string} userId - user id.
- *
+ * @param {SystemUserModelI} storedUser - user data from db.
  *
  * @description
  * - Generates and returns JWT token with an expiry.
  *
  */
-// TODO - refactor to consider system and customer
-export const getJwtMidW = (email: string, userId: number) => {
+export const getJwtMidW = (storedUser: SystemUserModelI) => {
+  const { email, systemUserId, role } = storedUser;
+
   const jwtSignPayload = {
     email: email,
-    userId: userId,
+    systemUserId: systemUserId,
+    role: role,
   };
   const jwtSignOptions = {
     expiresIn: parseInt(process.env.SYSTEM_JWT_TOKEN_EXPIRY),

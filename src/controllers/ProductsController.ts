@@ -25,7 +25,7 @@ export const getAllProducts = async (_req: Request, res: Response) => {
     const results = await getAllProductsMidW();
     if (!results) throw new Error("Error getting products.");
 
-    res.status(200).json({ success: true, data: { products: results } });
+    res.status(200).json({ success: true, products: results });
   } catch (error) {
     console.error(error.message);
 

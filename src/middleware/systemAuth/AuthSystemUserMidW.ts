@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
-import { SystemStoredUserModelI } from "@db/models/SystemStoredUserModel";
+import { SystemUserModelI } from "@db/models/SystemUserModel";
 
 export const authSystemUserMidW = async (email: string, password: string) => {
   let dbConn: PoolClient | null = null;
@@ -19,7 +19,7 @@ export const authSystemUserMidW = async (email: string, password: string) => {
     const qResult = await dbConn.query(query);
     if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
 
-    const storedUser: SystemStoredUserModelI = qResult.rows[0];
+    const storedUser: SystemUserModelI = qResult.rows[0];
     if (!storedUser) throw new Error(`System user does not exist.`);
 
     const validRoles = ["admin", "mngr", "staff"];

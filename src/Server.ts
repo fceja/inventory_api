@@ -1,7 +1,6 @@
 import bodyParser from "body-parser";
 import cors from "cors";
 import express, { Application } from "express";
-import session from "express-session";
 import swaggerUi from "swagger-ui-express";
 
 import "@configs/EnvConfig";
@@ -17,20 +16,13 @@ const corsOptions = {
   origin: process.env.CORS_ORIGIN,
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
+  credentials: true,
 };
 
 // middleware
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
-app.use(
-  session({
-    name: "app-session",
-    secret: process.env.SESSION_COOKIE_SECRET_KEY,
-    resave: false,
-    saveUninitialized: false,
-  }),
-);
 
 // routes
 app.use("/api/v1", indexRouter);
