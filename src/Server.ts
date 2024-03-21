@@ -15,7 +15,7 @@ const app: Application = express();
 const corsOptions = {
   origin: process.env.CORS_ORIGIN,
   methods: ["GET", "POST"],
-  exposedHeaders: ["X-Jwt-Token"],
+  exposedHeaders: ["authorization"],
   credentials: true,
 };
 

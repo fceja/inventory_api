@@ -42,7 +42,9 @@ const validateJwtMidW = (
 ): Response | NextFunction | void => {
   try {
     // parse jwt token from request headers
-    const jwtToken = req.headers["X-Jwt-Token"] as string;
+    const jwtToken = (req.headers["authorization"] as string).split(
+      "Bearer ",
+    )[1];
     if (!jwtToken) {
       throw new Error("Jwt token does not exist.");
     }
