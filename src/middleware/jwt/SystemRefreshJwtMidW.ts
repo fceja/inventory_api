@@ -15,7 +15,7 @@ import jwt from "jsonwebtoken";
 const refreshJwtMidW = (req: Request, res: Response, next: NextFunction) => {
   try {
     // parse jwt token from request headers
-    const oldToken = req.headers["jwt-token"] as string;
+    const oldToken = req.headers["X-Jwt-Token"] as string;
 
     // verify token signature and expiry
     const decodedToken = jwt.verify(
@@ -35,7 +35,7 @@ const refreshJwtMidW = (req: Request, res: Response, next: NextFunction) => {
     );
 
     // assign token to response headers
-    res.set("jwt-token", newToken);
+    res.set("X-Jwt-Token", newToken);
 
     next();
   } catch (error) {

@@ -8,7 +8,7 @@ export default function requireAdminMidW(
 ) {
   try {
     // retrieve role from decoded payload
-    const jwtToken = req.headers["jwt-token"] as string;
+    const jwtToken = req.headers["X-Jwt-Token"] as string;
     const decodedToken = jwt.decode(jwtToken) as { [key: string]: any };
     const role = decodedToken.role;
 

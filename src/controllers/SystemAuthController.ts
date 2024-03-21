@@ -13,7 +13,7 @@ export const systemLogin = async (req: Request, res: Response) => {
     if (!storedUser) throw Error("System user error.");
 
     // apply jwt token
-    res.set("jwt-token", getJwtMidW(storedUser));
+    res.set("X-Jwt-token", getJwtMidW(storedUser));
 
     return res.status(200).json({ success: true, message: `OK.` });
   } catch (error) {
