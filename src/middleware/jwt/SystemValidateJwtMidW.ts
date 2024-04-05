@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import jwt, { Algorithm, JwtPayload } from "jsonwebtoken";
+import jwt, { Algorithm } from "jsonwebtoken";
 
 // helper
 const decodeAndValidate = (jwtToken: string) => {

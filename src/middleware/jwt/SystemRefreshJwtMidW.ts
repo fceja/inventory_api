@@ -36,8 +36,9 @@ const refreshJwtMidW = (req: Request, res: Response, next: NextFunction) => {
       process.env.SYSTEM_JWT_SECRET_KEY,
     );
 
+
     // assign token to response headers
-    res.set("authorizaition", `Bearer ${newToken}`);
+    res.set("authorization", `Bearer ${newToken}`);
 
     next();
   } catch (error) {

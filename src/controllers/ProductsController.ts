@@ -11,7 +11,7 @@ export const createProduct = async (req: Request, res: Response) => {
     const success = await createProductMidW(req.body);
     if (!success) throw new Error("Error creating product.");
 
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true, message: 'OK.' });
   } catch (error) {
     console.error(error.message);
 
