@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import systemAuthRouter from "@routes/systemAuth/SystemAuthRouter";
 import systemUsersRouter from "@routes/systemUsers/SystemUsersRouter";
 import productsRouter from "@routes/products/ProductsRouter";
+import folderNodesRouter from "@routes/folderNodes/FolderNodesRouter";
 
 // init
 const indexRouter = express.Router();
@@ -32,8 +33,9 @@ indexRouter.get("/", (_req: Request, res: Response) => {
   }
 });
 
+indexRouter.use("/folderNodes", folderNodesRouter);
+indexRouter.use("/products", productsRouter);
 indexRouter.use("/systemAuth", systemAuthRouter);
 indexRouter.use("/systemUsers", systemUsersRouter);
-indexRouter.use("/products", productsRouter);
 
 export default indexRouter;
