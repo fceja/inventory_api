@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { getByFolderIdMidW } from "@middleware/nodes/GetFolderNodesMidW";
+import { getByFolderIdMidW } from "@middleware/folderNodes/GetFolderNodesMidW";
 
 // READ operations
 export const getByFolderId = async (req: Request, res: Response) => {

@@ -5,21 +5,30 @@ import { connPool } from "@db/DbPoolClient";
 export const getByFolderIdMidW = async (folderId: string) => {
     let dbConn: PoolClient | null = null;
     try {
-        const query = `
-            SELECT *
-            FROM folders
-            WHERE parent_folder_id = ${folderId}
-            UNION ALL
+        let query: string
+
+        // query folders
+        query = `
+        SELECT *
+        FROM folders
+        WHERE parent_folder_id = ${folderId}
+        `;
+
+        let qResult1 = await connPool.query(query);
+        if (!qResult1) throw new Error(`Db error.\nquery -> ${query}`);
+
+        // query items
+        query = `
             SELECT *
             FROM items
             WHERE parent_folder_id = ${folderId};
         `;
 
-        const qResult = await connPool.query(query);
+        const qResult2 = await connPool.query(query)
+        if (!qResult2) throw new Error(`Db error.\nquery -> ${query}`);
 
-        if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
+        return [...qResult1.rows, ...qResult2.rows];
 
-        return qResult.rows;
     } catch (error) {
         console.error(error.message);
 
