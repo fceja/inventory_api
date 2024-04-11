@@ -8,7 +8,7 @@ export const getAllSystemUsersMidW = async () => {
   try {
     const query = `
       SELECT *
-      FROM system_users
+      FROM "systemUsers"
     `;
     const qResult = await connPool.query(query);
 

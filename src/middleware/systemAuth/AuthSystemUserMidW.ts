@@ -13,8 +13,8 @@ export const authSystemUserMidW = async (email: string, password: string) => {
 
     const query = `
       SELECT *
-      FROM system_users A
-      WHERE A.email='${email}'
+      FROM "systemUsers" A
+      WHERE A."email"='${email}'
     `;
     const qResult = await dbConn.query(query);
     if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);

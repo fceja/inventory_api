@@ -9,9 +9,9 @@ export const getByFolderIdMidW = async (folderId: string) => {
 
         // query folders
         query = `
-        SELECT *
-        FROM folders
-        WHERE parent_folder_id = ${folderId}
+            SELECT *
+            FROM "folders"
+            WHERE "parentFolderId" = ${folderId}
         `;
 
         let qResult1 = await connPool.query(query);
@@ -20,8 +20,8 @@ export const getByFolderIdMidW = async (folderId: string) => {
         // query items
         query = `
             SELECT *
-            FROM items
-            WHERE parent_folder_id = ${folderId};
+            FROM "items"
+            WHERE "parentFolderId" = ${folderId};
         `;
 
         const qResult2 = await connPool.query(query)
