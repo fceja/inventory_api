@@ -1,9 +1,10 @@
 import express, { Request, Response } from "express";
 
+import folderNodesRouter from "@routes/folderNodes/FolderNodesRouter";
+import itemsRouter from "@routes/items/ItemsRouter";
+import productsRouter from "@routes/products/ProductsRouter";
 import systemAuthRouter from "@routes/systemAuth/SystemAuthRouter";
 import systemUsersRouter from "@routes/systemUsers/SystemUsersRouter";
-import productsRouter from "@routes/products/ProductsRouter";
-import folderNodesRouter from "@routes/folderNodes/FolderNodesRouter";
 
 // init
 const indexRouter = express.Router();
