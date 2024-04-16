@@ -34,6 +34,7 @@ indexRouter.get("/", (_req: Request, res: Response) => {
 });
 
 indexRouter.use("/folderNodes", folderNodesRouter);
+indexRouter.use("/items", itemsRouter);
 indexRouter.use("/products", productsRouter);
 indexRouter.use("/systemAuth", systemAuthRouter);
 indexRouter.use("/systemUsers", systemUsersRouter);
