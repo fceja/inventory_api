@@ -16,7 +16,7 @@ export const getNodesByFolderId = async (req: Request, res: Response) => {
 
         res.status(200).json({
             success: true,
-            folder: infoResults,
+            folder: infoResults[0],
             folderNodes: nodesResults
         });
     } catch (error) {
