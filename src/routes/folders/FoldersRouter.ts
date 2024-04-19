@@ -1,17 +1,17 @@
 import express from "express";
 
-import * as FolderNodesController from "@controllers/FolderNodesController";
+import * as FoldersController from "@controllers/FoldersController";
 import refreshJwtMidW from "@middleware/jwt/SystemRefreshJwtMidW";
 import validateJwtMidW from "@middleware/jwt/SystemValidateJwtMidW";
 
-const folderNodesRouter = express.Router();
+const foldersRouter = express.Router();
 
 // auth required
 // READ operations
-folderNodesRouter.get(
+foldersRouter.get(
   "/:folderId",
   [validateJwtMidW, refreshJwtMidW],
-  FolderNodesController.getByFolderId,
+  FoldersController.getNodesByFolderId,
 );
 
-export default folderNodesRouter;
+export default foldersRouter;

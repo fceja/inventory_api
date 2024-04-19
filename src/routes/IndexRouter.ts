@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 
-import folderNodesRouter from "@routes/folderNodes/FolderNodesRouter";
+import foldersRouter from "@routes/folders/FoldersRouter";
 import itemsRouter from "@routes/items/ItemsRouter";
 import productsRouter from "@routes/products/ProductsRouter";
 import systemAuthRouter from "@routes/systemAuth/SystemAuthRouter";
@@ -34,7 +34,7 @@ indexRouter.get("/", (_req: Request, res: Response) => {
   }
 });
 
-indexRouter.use("/folderNodes", folderNodesRouter);
+indexRouter.use("/folders", foldersRouter);
 indexRouter.use("/items", itemsRouter);
 indexRouter.use("/products", productsRouter);
 indexRouter.use("/systemAuth", systemAuthRouter);

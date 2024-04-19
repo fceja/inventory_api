@@ -2,7 +2,7 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 
-export const getByFolderIdMidW = async (folderId: string) => {
+export const getNodesByFolderIdMidW = async (folderId: string) => {
     let dbConn: PoolClient | null = null;
     try {
         let query: string
@@ -17,7 +17,6 @@ export const getByFolderIdMidW = async (folderId: string) => {
         let qResult1 = await connPool.query(query);
         if (!qResult1) throw new Error(`Db error.\nquery -> ${query}`);
 
-        // query items
         query = `
             SELECT *
             FROM "items"
