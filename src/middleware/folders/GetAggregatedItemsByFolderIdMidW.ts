@@ -29,8 +29,6 @@ export const getAggregatedItemsByFolderIdMidW = async (folderId: string) => {
 
         const qResult = await connPool.query(query);
         if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
-        console.log(`qResult.rows[0]`)
-        console.log(qResult.rows[0])
 
         return qResult.rows[0]
 

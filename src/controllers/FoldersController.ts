@@ -34,18 +34,16 @@ export const getAggregatedDataByFolderId = async (req: Request, res: Response) =
     try {
         const { folderId } = req.params
 
-        const folderResults = await getAggregatedFoldersByFolderIdMidW(folderId);
+        const [folderResults, itemResults, quantityResults, valueResults] = await Promise.all([
+            getAggregatedFoldersByFolderIdMidW(folderId),
+            getAggregatedItemsByFolderIdMidW(folderId),
+            getAggregatedQuantityByFolderIdMidW(folderId),
+            getAggregatedValuesByFolderIdMidW(folderId)
+        ])
         if (!folderResults) throw new Error("Error getting aggregated folders.");
-
-        const itemResults = await getAggregatedItemsByFolderIdMidW(folderId);
         if (!itemResults) throw new Error("Error getting aggregated items.");
-
-        const quantityResults = await getAggregatedQuantityByFolderIdMidW(folderId);
         if (!quantityResults) throw new Error("Error getting aggregated quantities.");
-
-        const valueResults = await getAggregatedValuesByFolderIdMidW(folderId);
         if (!valueResults) throw new Error("Error getting aggregated values.");
-
 
         const folderData = {
             folderId: Number(folderId),
