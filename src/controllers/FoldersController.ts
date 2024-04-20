@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 
 import { getNodesByFolderIdMidW } from "@middleware/folders/GetNodesByFolderIdMidW";
 import { getInfoByFolderIdMidW } from "@middleware/folders/GetInfoByFolderIdMidW"
+import { getAggregatedFoldersByFolderIdMidW } from "@middleware/folders/GetAggregatedFoldersByFolderIdMidW"
+import { getAggregatedItemsByFolderIdMidW } from "@middleware/folders/GetAggregatedItemsByFolderIdMidW"
+import { getAggregatedQuantityByFolderIdMidW } from "@middleware/folders/GetAggregatedQuantitiesByFolderIdMidW"
+import { getAggregatedValuesByFolderIdMidW } from "@middleware/folders/GetAggregatedValuesByFolderIdMidW"
 
 // READ operations
 export const getNodesByFolderId = async (req: Request, res: Response) => {
@@ -18,6 +22,42 @@ export const getNodesByFolderId = async (req: Request, res: Response) => {
             success: true,
             folder: infoResults[0],
             folderNodes: nodesResults
+        });
+    } catch (error) {
+        console.error(error.message);
+
+        res.status(500).json({ success: false, message: "Internal server error." });
+    }
+};
+
+export const getAggregatedDataByFolderId = async (req: Request, res: Response) => {
+    try {
+        const { folderId } = req.params
+
+        const folderResults = await getAggregatedFoldersByFolderIdMidW(folderId);
+        if (!folderResults) throw new Error("Error getting aggregated folders.");
+
+        const itemResults = await getAggregatedItemsByFolderIdMidW(folderId);
+        if (!itemResults) throw new Error("Error getting aggregated items.");
+
+        const quantityResults = await getAggregatedQuantityByFolderIdMidW(folderId);
+        if (!quantityResults) throw new Error("Error getting aggregated quantities.");
+
+        const valueResults = await getAggregatedValuesByFolderIdMidW(folderId);
+        if (!valueResults) throw new Error("Error getting aggregated values.");
+
+
+        const folderData = {
+            folderId: Number(folderId),
+            folderTotal: folderResults.folderTotal,
+            itemTotal: itemResults.itemTotal,
+            quantityTotal: quantityResults.quantityTotal,
+            valueTotal: valueResults.valueTotal
+        }
+
+        res.status(200).json({
+            success: true,
+            folder: folderData
         });
     } catch (error) {
         console.error(error.message);

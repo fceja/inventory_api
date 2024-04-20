@@ -14,4 +14,10 @@ foldersRouter.get(
   FoldersController.getNodesByFolderId,
 );
 
+foldersRouter.get(
+  "/:folderId/aggregatedData",
+  [validateJwtMidW, refreshJwtMidW],
+  FoldersController.getAggregatedDataByFolderId,
+);
+
 export default foldersRouter;
