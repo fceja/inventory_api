@@ -22,7 +22,7 @@ export const getAggregatedItemsByFolderIdMidW = async (folderId: string) => {
                 FROM FolderHierarchy f
                 LEFT JOIN items i ON f."folderId" = i."parentFolderId"
             )
-            SELECT COUNT(DISTINCT "itemId")::INT AS "itemTotal"
+            SELECT COUNT(DISTINCT "itemId") AS "itemTotal"
             FROM ItemHierarchy
             WHERE "itemId" IS NOT NULL;
         `;

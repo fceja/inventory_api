@@ -22,7 +22,7 @@ export const getAggregatedQuantityByFolderIdMidW = async (folderId: string) => {
                 FROM FolderHierarchy f
                 LEFT JOIN items i ON f."folderId" = i."parentFolderId"
             )
-            SELECT COALESCE(SUM("quantity"), 0)::INT AS "quantityTotal"
+            SELECT COALESCE(SUM("quantity"), 0) AS "quantityTotal"
             FROM ItemHierarchy
             WHERE "itemId" IS NOT NULL;
         `;

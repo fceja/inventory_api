@@ -17,7 +17,7 @@ export const getAggregatedFoldersByFolderIdMidW = async (folderId: string) => {
                 FROM folders f
                 JOIN FolderHierarchy fh ON f."parentFolderId" = fh."folderId"
             )
-            SELECT COUNT(*)::INT - 1 AS "folderTotal" -- exclude current folder
+            SELECT COUNT(*) - 1 AS "folderTotal" -- exclude current folder
             FROM FolderHierarchy;
         `;
 

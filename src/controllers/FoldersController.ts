@@ -47,10 +47,10 @@ export const getAggregatedDataByFolderId = async (req: Request, res: Response) =
 
         const folderData = {
             folderId: Number(folderId),
-            folderTotal: folderResults.folderTotal,
-            itemTotal: itemResults.itemTotal,
-            quantityTotal: quantityResults.quantityTotal,
-            valueTotal: valueResults.valueTotal
+            folderTotal: Number(folderResults.folderTotal),
+            itemTotal: Number(itemResults.itemTotal),
+            quantityTotal: Number(quantityResults.quantityTotal),
+            valueTotal: Number(valueResults.valueTotal)
         }
 
         res.status(200).json({
