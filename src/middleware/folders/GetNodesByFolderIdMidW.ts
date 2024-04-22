@@ -1,6 +1,7 @@
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
+import { handleUnknownError } from "@utils/ErrorUtils"
 
 export const getNodesByFolderIdMidW = async (folderId: string) => {
     let dbConn: PoolClient | null = null;
@@ -28,11 +29,11 @@ export const getNodesByFolderIdMidW = async (folderId: string) => {
 
         return [...qResult1.rows, ...qResult2.rows];
 
-    } catch (error) {
-        console.error(error.message);
+    } catch (error: unknown) {
+        handleUnknownError(error)
 
         return null;
     } finally {
-        if (dbConn) dbConn.release();
+        if (dbConn) (dbConn as PoolClient).release();
     }
 };

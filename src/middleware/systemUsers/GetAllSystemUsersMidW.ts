@@ -1,6 +1,7 @@
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
+import { handleUnknownError } from "@utils/ErrorUtils"
 
 export const getAllSystemUsersMidW = async () => {
   let dbConn: PoolClient | null = null;
@@ -15,11 +16,11 @@ export const getAllSystemUsersMidW = async () => {
     if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
 
     return qResult.rows;
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return null;
   } finally {
-    if (dbConn) dbConn.release();
+    if (dbConn) (dbConn as PoolClient).release();
   }
 };

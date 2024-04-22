@@ -1,6 +1,7 @@
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
+import { handleUnknownError } from "@utils/ErrorUtils"
 import { ProductsModelI } from "@db/models/ProductsModel";
 import { camelToSnake } from "@utils/StringUtils";
 
@@ -42,11 +43,11 @@ export const createProductMidW = async (productData: ProductsModelI) => {
       );
 
     return qResult.rowCount === 1 ? true : false;
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return false;
   } finally {
-    if (dbConn) dbConn.release();
+    if (dbConn) (dbConn as PoolClient).release();
   }
 };

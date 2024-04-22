@@ -1,7 +1,7 @@
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
-
+import { handleUnknownError } from "@utils/ErrorUtils"
 import { ProductsModelI } from "@models/ProductsModel";
 
 // helper
@@ -46,11 +46,11 @@ export const updateByProductIdMidW = async (
       );
 
     return true;
-  } catch (error) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return false;
   } finally {
-    if (dbConn) dbConn.release();
+    if (dbConn) (dbConn as PoolClient).release();
   }
 };

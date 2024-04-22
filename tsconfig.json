@@ -13,17 +13,39 @@
     "outDir": "./dist",
     "resolveJsonModule": true,
     "paths": {
-      "@configs/*": ["./src/configs/*"],
-      "@controllers/*": ["./src/controllers/*"],
-      "@db/*": ["./src/db/*"],
-      "@middleware/*": ["./src/middleware/*"],
-      "@models/*": ["src/db/models/*"],
-      "@routers/*": ["./src/routers/*"],
-      "@routes/*": ["./src/routes/*"],
-      "@appTypes/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@configs/*": [
+        "./src/configs/*"
+      ],
+      "@controllers/*": [
+        "./src/controllers/*"
+      ],
+      "@db/*": [
+        "./src/db/*"
+      ],
+      "@middleware/*": [
+        "./src/middleware/*"
+      ],
+      "@models/*": [
+        "src/db/models/*"
+      ],
+      "@routers/*": [
+        "./src/routers/*"
+      ],
+      "@routes/*": [
+        "./src/routes/*"
+      ],
+      "@appTypes/*": [
+        "./src/types/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ]
     },
-    "typeRoots": ["src/types/CustomExpress.d.ts"]
+    "typeRoots": [
+      "src/types/CustomExpress.d.ts"
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

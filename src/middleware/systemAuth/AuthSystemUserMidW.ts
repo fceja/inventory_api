@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
+import { handleUnknownError } from "@utils/ErrorUtils"
 import { SystemUserModelI } from "@db/models/SystemUserModel";
 
 export const authSystemUserMidW = async (email: string, password: string) => {
@@ -33,11 +34,11 @@ export const authSystemUserMidW = async (email: string, password: string) => {
       throw new Error("Invalid password.");
 
     return storedUser;
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return null;
   } finally {
-    if (dbConn) dbConn.release();
+    if (dbConn) (dbConn as PoolClient).release();
   }
 };
