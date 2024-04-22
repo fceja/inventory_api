@@ -8,7 +8,7 @@ export const getByItemId = async (req: Request, res: Response) => {
     try {
         const { itemId } = req.params
 
-        const results = await getByItemIdMidW(itemId);
+        const results = await getByItemIdMidW(Number(itemId));
         if (!results) throw new Error("Error getting item node.");
 
         res.status(200).json({ success: true, item: results });

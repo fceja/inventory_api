@@ -2,16 +2,12 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 import { handleUnknownError } from "@utils/ErrorUtils"
+import { getContentsByFolderIdQuery } from "@db/queries/FolderQueries"
 
-export const getInfoByFolderIdMidW = async (folderId: string) => {
+export const getContentsByFolderIdMidW = async (folderId: number) => {
     let dbConn: PoolClient | null = null;
     try {
-        const query = `
-            SELECT *
-            FROM "folders"
-            WHERE "folderId" = ${folderId}
-        `;
-
+        const query = getContentsByFolderIdQuery(folderId)
         const qResult = await connPool.query(query);
         if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
 

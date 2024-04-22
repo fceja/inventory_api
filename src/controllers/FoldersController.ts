@@ -5,7 +5,7 @@ import { getAggregatedFoldersByFolderIdMidW } from "@middleware/folders/GetAggre
 import { getAggregatedItemsByFolderIdMidW } from "@middleware/folders/GetAggregatedItemsByFolderIdMidW"
 import { getAggregatedQuantityByFolderIdMidW } from "@middleware/folders/GetAggregatedQuantitiesByFolderIdMidW"
 import { getAggregatedPricesByFolderIdMidW } from "@middleware/folders/GetAggregatedValuesByFolderIdMidW"
-import { getInfoByFolderIdMidW } from "@middleware/folders/GetInfoByFolderIdMidW"
+import { getContentsByFolderIdMidW } from "@middleware/folders/GetContentsByFolderIdMidW"
 import { getNodesByFolderIdMidW } from "@middleware/folders/GetNodesByFolderIdMidW";
 
 // READ operations
@@ -13,7 +13,7 @@ export const getNodesByFolderId = async (req: Request, res: Response) => {
     try {
         const { folderId } = req.params
 
-        const infoResults = await getInfoByFolderIdMidW(folderId);
+        const infoResults = await getContentsByFolderIdMidW(Number(folderId));
         if (!infoResults || infoResults.length !== 1) throw new Error("Error getting folder.");
 
         const nodesResults = await getNodesByFolderIdMidW(folderId);

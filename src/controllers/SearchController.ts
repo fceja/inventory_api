@@ -21,7 +21,6 @@ export const getAutoCompleteByName = async (req: Request, res: Response) => {
             const folderResults: FoldersModelI[] | null = await getFoldersContainingNameMidW(folderName as string);
             if (folderResults) {
                 results = { ...results, folders: [...folderResults] };
-
             }
         }
 
