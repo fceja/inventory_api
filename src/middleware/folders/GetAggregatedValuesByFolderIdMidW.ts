@@ -3,7 +3,7 @@ import { PoolClient } from "pg";
 import { connPool } from "@db/DbPoolClient";
 import { handleUnknownError } from "@utils/ErrorUtils"
 
-export const getAggregatedValuesByFolderIdMidW = async (folderId: string) => {
+export const getAggregatedPricesByFolderIdMidW = async (folderId: string) => {
     let dbConn: PoolClient | null = null;
     try {
         const query = `
@@ -19,11 +19,11 @@ export const getAggregatedValuesByFolderIdMidW = async (folderId: string) => {
                 JOIN FolderHierarchy fh ON f."parentFolderId" = fh."folderId"
             ),
             ItemHierarchy AS (
-                SELECT f."folderId", i."itemId", i."value"
+                SELECT f."folderId", i."itemId", i."price"
                 FROM FolderHierarchy f
                 LEFT JOIN items i ON f."folderId" = i."parentFolderId"
             )
-            SELECT ROUND(COALESCE(SUM("value"), 0), 2) AS "valueTotal"
+            SELECT ROUND(COALESCE(SUM("price"), 0), 2)::float AS "priceTotal"
 
             FROM ItemHierarchy
             WHERE "itemId" IS NOT NULL;

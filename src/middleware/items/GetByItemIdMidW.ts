@@ -9,7 +9,16 @@ export const getByItemIdMidW = async (itemId: string) => {
     try {
         const query =
             `
-                SELECT *
+                SELECT
+                    "itemId",
+                    "parentFolderId",
+                    "name",
+                    "nodeType",
+                    "quantity",
+                    "cost"::float,
+                    "price"::float,
+                    "createdAt",
+                    "updatedAt"
                 FROM "items"
                 WHERE "itemId" = ${itemId}
             `;

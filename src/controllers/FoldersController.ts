@@ -4,7 +4,7 @@ import { handleUnknownError } from "@utils/ErrorUtils"
 import { getAggregatedFoldersByFolderIdMidW } from "@middleware/folders/GetAggregatedFoldersByFolderIdMidW"
 import { getAggregatedItemsByFolderIdMidW } from "@middleware/folders/GetAggregatedItemsByFolderIdMidW"
 import { getAggregatedQuantityByFolderIdMidW } from "@middleware/folders/GetAggregatedQuantitiesByFolderIdMidW"
-import { getAggregatedValuesByFolderIdMidW } from "@middleware/folders/GetAggregatedValuesByFolderIdMidW"
+import { getAggregatedPricesByFolderIdMidW } from "@middleware/folders/GetAggregatedValuesByFolderIdMidW"
 import { getInfoByFolderIdMidW } from "@middleware/folders/GetInfoByFolderIdMidW"
 import { getNodesByFolderIdMidW } from "@middleware/folders/GetNodesByFolderIdMidW";
 
@@ -35,23 +35,23 @@ export const getAggregatedDataByFolderId = async (req: Request, res: Response) =
     try {
         const { folderId } = req.params
 
-        const [folderResults, itemResults, quantityResults, valueResults] = await Promise.all([
+        const [folderResults, itemResults, quantityResults, priceResults] = await Promise.all([
             getAggregatedFoldersByFolderIdMidW(folderId),
             getAggregatedItemsByFolderIdMidW(folderId),
             getAggregatedQuantityByFolderIdMidW(folderId),
-            getAggregatedValuesByFolderIdMidW(folderId)
+            getAggregatedPricesByFolderIdMidW(folderId)
         ])
         if (!folderResults) throw new Error("Error getting aggregated folders.");
         if (!itemResults) throw new Error("Error getting aggregated items.");
         if (!quantityResults) throw new Error("Error getting aggregated quantities.");
-        if (!valueResults) throw new Error("Error getting aggregated values.");
+        if (!priceResults) throw new Error("Error getting aggregated prices.");
 
         const folderData = {
             folderId: Number(folderId),
             folderTotal: Number(folderResults.folderTotal),
             itemTotal: Number(itemResults.itemTotal),
             quantityTotal: Number(quantityResults.quantityTotal),
-            valueTotal: Number(valueResults.valueTotal)
+            priceTotal: Number(priceResults.priceTotal)
         }
 
         res.status(200).json({
