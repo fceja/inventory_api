@@ -16,7 +16,7 @@ export const getNodesByFolderId = async (req: Request, res: Response) => {
         const infoResults = await getContentsByFolderIdMidW(Number(folderId));
         if (!infoResults || infoResults.length !== 1) throw new Error("Error getting folder.");
 
-        const nodesResults = await getNodesByFolderIdMidW(folderId);
+        const nodesResults = await getNodesByFolderIdMidW(Number(folderId));
         if (!nodesResults) throw new Error("Error getting folder nodes.");
 
         res.status(200).json({

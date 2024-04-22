@@ -2,16 +2,12 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 import { handleUnknownError } from "@utils/ErrorUtils"
+import { getFoldersContainingNameQuery } from "@db/queries/FolderQueries"
 
 export const getFoldersContainingNameMidW = async (folderName: string) => {
     let dbConn: PoolClient | null = null;
     try {
-        const query = `
-            SELECT *
-            FROM "folders"
-            WHERE LOWER("name") LIKE LOWER('%${folderName}%');
-        `;
-
+        const query = getFoldersContainingNameQuery(folderName)
         const qResult = await connPool.query(query);
         if (!qResult) throw new Error(`Db error.\nquery -> ${query}`);
 

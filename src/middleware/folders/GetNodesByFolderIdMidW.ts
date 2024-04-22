@@ -2,28 +2,19 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 import { handleUnknownError } from "@utils/ErrorUtils"
+import { getChildFoldersByFolderIdQuery } from "@db/queries/FolderQueries"
+import { getChildItemsByParentFolderIdQuery } from "@db/queries/ItemQueries"
 
-export const getNodesByFolderIdMidW = async (folderId: string) => {
+export const getNodesByFolderIdMidW = async (parentFolderId: number) => {
     let dbConn: PoolClient | null = null;
     try {
         let query: string
 
-        // query folders
-        query = `
-            SELECT *
-            FROM "folders"
-            WHERE "parentFolderId" = ${folderId}
-        `;
-
+        query = getChildFoldersByFolderIdQuery(parentFolderId)
         let qResult1 = await connPool.query(query);
         if (!qResult1) throw new Error(`Db error.\nquery -> ${query}`);
 
-        query = `
-            SELECT *
-            FROM "items"
-            WHERE "parentFolderId" = ${folderId};
-        `;
-
+        query = getChildItemsByParentFolderIdQuery(parentFolderId)
         const qResult2 = await connPool.query(query)
         if (!qResult2) throw new Error(`Db error.\nquery -> ${query}`);
 
