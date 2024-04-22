@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 
+import { handleUnknownError } from "@utils/ErrorUtils"
+
 // define validation schema for products model props
 const ProductsModel = Joi.object({
   // optional string prop
@@ -20,11 +22,11 @@ const validateProductsModel = (
 ) => {
   try {
     const { error } = ProductsModel.validate(req.body);
-    if (error) throw new Error(error.message);
+    if (error) handleUnknownError(error);
 
     next();
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return res.status(400).send({
       success: false,

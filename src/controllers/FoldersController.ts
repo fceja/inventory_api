@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 
-import { getNodesByFolderIdMidW } from "@middleware/folders/GetNodesByFolderIdMidW";
-import { getInfoByFolderIdMidW } from "@middleware/folders/GetInfoByFolderIdMidW"
+import { handleUnknownError } from "@utils/ErrorUtils"
 import { getAggregatedFoldersByFolderIdMidW } from "@middleware/folders/GetAggregatedFoldersByFolderIdMidW"
 import { getAggregatedItemsByFolderIdMidW } from "@middleware/folders/GetAggregatedItemsByFolderIdMidW"
 import { getAggregatedQuantityByFolderIdMidW } from "@middleware/folders/GetAggregatedQuantitiesByFolderIdMidW"
 import { getAggregatedValuesByFolderIdMidW } from "@middleware/folders/GetAggregatedValuesByFolderIdMidW"
+import { getInfoByFolderIdMidW } from "@middleware/folders/GetInfoByFolderIdMidW"
+import { getNodesByFolderIdMidW } from "@middleware/folders/GetNodesByFolderIdMidW";
 
 // READ operations
 export const getNodesByFolderId = async (req: Request, res: Response) => {
@@ -23,8 +24,8 @@ export const getNodesByFolderId = async (req: Request, res: Response) => {
             folder: infoResults[0],
             folderNodes: nodesResults
         });
-    } catch (error) {
-        console.error(error.message);
+    } catch (error: unknown) {
+        handleUnknownError(error)
 
         res.status(500).json({ success: false, message: "Internal server error." });
     }
@@ -57,8 +58,8 @@ export const getAggregatedDataByFolderId = async (req: Request, res: Response) =
             success: true,
             folder: folderData
         });
-    } catch (error) {
-        console.error(error.message);
+    } catch (error: unknown) {
+        handleUnknownError(error)
 
         res.status(500).json({ success: false, message: "Internal server error." });
     }

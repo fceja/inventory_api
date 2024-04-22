@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { createProductMidW } from "@middleware/products/CreateProductMidW";
 import { deleteByProductIdMidW } from "@middleware/products/DeleteByProductIdMidW";
+import { handleUnknownError } from "@utils/ErrorUtils"
 import { getAllProductsMidW } from "@middleware/products/GetAllProductsMidW";
 import { updateByProductIdMidW } from "@middleware/products/UpdateByProductIdMidw";
 
@@ -12,8 +13,8 @@ export const createProduct = async (req: Request, res: Response) => {
     if (!success) throw new Error("Error creating product.");
 
     res.status(200).json({ success: true, message: 'OK.' });
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     res.status(500).json({ success: false, message: "Internal server error." });
   }
@@ -26,8 +27,8 @@ export const getAllProducts = async (_req: Request, res: Response) => {
     if (!results) throw new Error("Error getting products.");
 
     res.status(200).json({ success: true, products: results });
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     res.status(500).json({ success: false, message: "Internal server error." });
   }
@@ -43,8 +44,8 @@ export const updateByProductId = async (req: Request, res: Response) => {
     if (!success) throw new Error("Error updating product.");
 
     res.status(200).json({ success: true });
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     res.status(500).json({ success: false, message: "Internal server error." });
   }
@@ -59,8 +60,8 @@ export const deleteByProductId = async (req: Request, res: Response) => {
     if (!success) throw new Error("Error deleting product.");
 
     res.status(200).json({ success: true });
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     res.status(500).json({ success: false, message: "Internal server error." });
   }

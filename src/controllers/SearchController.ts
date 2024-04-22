@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 
+import { handleUnknownError } from "@utils/ErrorUtils"
 import { FoldersModelI } from "@db/models/FoldersModel";
 import { getFoldersContainingNameMidW } from "@middleware/folders/GetFoldersContainingNameMidW";
 import { getItemsContainingNameMidW } from "@middleware/items/GetItemsContainingNameMidW";
@@ -31,8 +32,8 @@ export const getAutoCompleteByName = async (req: Request, res: Response) => {
 
         res.status(200).json({ success: true, results: results });
 
-    } catch (error) {
-        console.error(error.message);
+    } catch (error: unknown) {
+        handleUnknownError(error)
 
         res.status(500).json({ success: false, message: "Internal server error." });
     }

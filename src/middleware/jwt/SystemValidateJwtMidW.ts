@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { Algorithm } from "jsonwebtoken";
 
+import { handleUnknownError } from "@utils/ErrorUtils"
+
 // helper
 const decodeAndValidate = (jwtToken: string) => {
   const decodedToken = jwt.decode(jwtToken, { complete: true });
@@ -12,8 +14,8 @@ const decodeAndValidate = (jwtToken: string) => {
     });
 
     return true;
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return false;
   }
@@ -54,8 +56,8 @@ const validateJwtMidW = (
     if (!valid) throw new Error("Invalid jwt token.");
 
     return next();
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return res.status(401).send({ success: false, message: "Unauthorized." });
   }

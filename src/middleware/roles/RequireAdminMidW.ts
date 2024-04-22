@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
+import { handleUnknownError } from "@utils/ErrorUtils"
+
 export default function requireAdminMidW(
   req: Request,
   res: Response,
@@ -20,8 +22,8 @@ export default function requireAdminMidW(
     }
 
     next();
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return res.status(401).send({ success: false, message: "Not authorized." });
   }

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 
+import { handleUnknownError } from "@utils/ErrorUtils"
 import { getJwtMidW } from "@middleware/jwt/SystemGetJwtMidW";
 import { authSystemUserMidW } from "@middleware/systemAuth/AuthSystemUserMidW";
 
@@ -16,8 +17,8 @@ export const systemLogin = async (req: Request, res: Response) => {
     res.set("authorization", `Bearer ${getJwtMidW(storedUser)}`);
 
     return res.status(200).json({ success: true, message: `OK.` });
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return res.status(401).json({ success: false, message: "Not authorized." });
   }

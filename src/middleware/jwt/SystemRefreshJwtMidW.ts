@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+import { handleUnknownError } from "@utils/ErrorUtils"
+
 /**
  *
  * @param {Request} req - Express Request object.
@@ -41,8 +43,8 @@ const refreshJwtMidW = (req: Request, res: Response, next: NextFunction) => {
     res.set("authorization", `Bearer ${newToken}`);
 
     next();
-  } catch (error) {
-    console.error(error.message);
+  } catch (error: unknown) {
+    handleUnknownError(error)
 
     return res.status(401).send({ success: false, message: "Unauthorized." });
   }
