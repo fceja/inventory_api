@@ -4,7 +4,7 @@ import { handleUnknownError } from "@utils/ErrorUtils"
 import { getAggregatedFoldersByFolderIdMidW } from "@middleware/folders/GetAggregatedFoldersByFolderIdMidW"
 import { getAggregatedItemsByFolderIdMidW } from "@middleware/folders/GetAggregatedItemsByFolderIdMidW"
 import { getAggregatedQuantityByFolderIdMidW } from "@middleware/folders/GetAggregatedQuantitiesByFolderIdMidW"
-import { getAggregatedPricesByFolderIdMidW } from "@middleware/folders/GetAggregatedValuesByFolderIdMidW"
+import { getAggregatedValueByFolderIdMidW } from "@middleware/folders/GetAggregatedValuesByFolderIdMidW"
 import { getContentsByFolderIdMidW } from "@middleware/folders/GetContentsByFolderIdMidW"
 import { getNodesByFolderIdMidW } from "@middleware/folders/GetNodesByFolderIdMidW";
 
@@ -39,7 +39,7 @@ export const getAggregatedDataByFolderId = async (req: Request, res: Response) =
             getAggregatedFoldersByFolderIdMidW(folderId),
             getAggregatedItemsByFolderIdMidW(folderId),
             getAggregatedQuantityByFolderIdMidW(folderId),
-            getAggregatedPricesByFolderIdMidW(folderId)
+            getAggregatedValueByFolderIdMidW(folderId)
         ])
         if (!folderResults) throw new Error("Error getting aggregated folders.");
         if (!itemResults) throw new Error("Error getting aggregated items.");
@@ -51,7 +51,7 @@ export const getAggregatedDataByFolderId = async (req: Request, res: Response) =
             folderTotal: Number(folderResults.folderTotal),
             itemTotal: Number(itemResults.itemTotal),
             quantityTotal: Number(quantityResults.quantityTotal),
-            priceTotal: Number(priceResults.priceTotal)
+            valueTotal: Number(priceResults.valueTotal)
         }
 
         res.status(200).json({
