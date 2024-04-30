@@ -3,26 +3,23 @@ import Joi from "joi";
 
 import { handleUnknownError } from "@utils/ErrorUtils"
 
-// define validation schema for products model props
-const ProductsModel = Joi.object({
-  // optional string prop
+// define validation schema for items model props
+const ItemsModel = Joi.object({
   description: Joi.string().optional(),
-
-  // optional string prop, cannot be empty if provided
   name: Joi.string().optional().required().empty(""),
-
-  // optional numeric prop, cannot be a negative number if provided
+  parentFolderId: Joi.number().required().integer().positive(),
+  price: Joi.number().min(0).optional(),
   quantity: Joi.number().min(0).optional(),
 }).strict();
 
-const validateProductsModel = (
+const validateItemsModel = (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { error } = ProductsModel.validate(req.body);
-    if (error) handleUnknownError(error);
+    const { error } = ItemsModel.validate(req.body);
+    if (error) throw new Error(`Validating error -> ${error.details[0].message}`);
 
     next();
   } catch (error: unknown) {
@@ -35,4 +32,4 @@ const validateProductsModel = (
   }
 };
 
-export default validateProductsModel;
+export default validateItemsModel;

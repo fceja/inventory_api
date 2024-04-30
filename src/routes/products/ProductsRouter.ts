@@ -3,18 +3,11 @@ import express from "express";
 import * as ProductsController from "@controllers/ProductsController";
 import refreshJwtMidW from "@middleware/jwt/SystemRefreshJwtMidW";
 import validateJwtMidW from "@middleware/jwt/SystemValidateJwtMidW";
-import validateProductsModel from "@middleware/modelValidation/ValidateProductsModelMidW";
+import validateItemsModel from "@middleware/modelValidation/ValidateItemsModelMidW";
 
 const productsRouter = express.Router();
 
 // auth required
-// CREATE operations
-productsRouter.post(
-  "/",
-  [validateJwtMidW, refreshJwtMidW, validateProductsModel],
-  ProductsController.createProduct,
-);
-
 // READ operations
 productsRouter.get(
   "/",
@@ -25,7 +18,7 @@ productsRouter.get(
 // UPDATE operations
 productsRouter.put(
   "/:productId",
-  [validateJwtMidW, refreshJwtMidW, validateProductsModel],
+  [validateJwtMidW, refreshJwtMidW, validateItemsModel],
   ProductsController.updateByProductId,
 );
 
