@@ -11,6 +11,7 @@ import { ItemsModelI } from "@db/models/ItemsModel";
 export const getAutoCompleteByName = async (req: Request, res: Response) => {
     try {
         const { folderName, itemName } = req.query
+        if (!folderName && !itemName) throw new Error('Expected folderName or itemName query param.')
 
         let results: {
             folders?: FoldersModelI[],
