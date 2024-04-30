@@ -3,7 +3,6 @@ import express, { Request, Response } from "express";
 import { handleUnknownError } from "@utils/ErrorUtils"
 import foldersRouter from "@routes/folders/FoldersRouter";
 import itemsRouter from "@routes/items/ItemsRouter";
-import productsRouter from "@routes/products/ProductsRouter";
 import searchRouter from "@routes/search/SearchRouter";
 import systemAuthRouter from "@routes/systemAuth/SystemAuthRouter";
 import systemUsersRouter from "@routes/systemUsers/SystemUsersRouter";
@@ -38,7 +37,6 @@ indexRouter.get("/", (_req: Request, res: Response) => {
 
 indexRouter.use("/folders", foldersRouter);
 indexRouter.use("/items", itemsRouter);
-indexRouter.use("/products", productsRouter);
 indexRouter.use("/search", searchRouter);
 indexRouter.use("/systemAuth", systemAuthRouter);
 indexRouter.use("/systemUsers", systemUsersRouter);

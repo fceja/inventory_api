@@ -36,6 +36,14 @@ export const getCreateItemQuery = (itemData: ItemsModelI) => {
     return { query: query, queryParams: queryParams };
 }
 
+// DELETE operations
+export const getDeleteItemByItemIdQuery = (itemId: number) => {
+    return `
+        DELETE FROM "${TABLE_NAME}" A
+        WHERE A."itemId"=${itemId}
+    `;
+}
+
 // READ operations
 export const getAllItemsQuery = () => {
     return `

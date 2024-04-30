@@ -15,6 +15,13 @@ itemsRouter.post(
     ItemsController.createItem,
 );
 
+// DELETE operations
+itemsRouter.delete(
+    "/:itemId",
+    [validateJwtMidW, refreshJwtMidW],
+    ItemsController.deleteByItemId,
+);
+
 // READ operations
 itemsRouter.get(
     "/",

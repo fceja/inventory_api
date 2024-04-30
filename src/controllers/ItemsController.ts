@@ -6,6 +6,8 @@ import { getAllItemsMidW } from "@middleware/items/GetAllItemsMidW";
 import { getByItemIdMidW } from "@middleware/items/GetByItemIdMidW";
 import { updateByItemIdMidW } from "@middleware/items/UpdateByItemIdMidw";
 
+import { deleteByItemIdMidW } from "@middleware/items/DeleteByItemIdMidW";
+
 // CREATE operations
 export const createItem = async (req: Request, res: Response) => {
     try {
@@ -19,6 +21,23 @@ export const createItem = async (req: Request, res: Response) => {
         res.status(500).json({ success: false, message: "Internal server error." });
     }
 };
+
+// DELETE operations
+export const deleteByItemId = async (req: Request, res: Response) => {
+    try {
+        const itemId = Number(req.params.itemId)
+
+        const success = await deleteByItemIdMidW(itemId);
+        if (!success) throw new Error("Error deleting item.");
+
+        res.status(200).json({ success: true });
+    } catch (error: unknown) {
+        handleUnknownError(error)
+
+        res.status(500).json({ success: false, message: "Internal server error." });
+    }
+};
+
 
 // READ operations
 export const getAllItems = async (_req: Request, res: Response) => {

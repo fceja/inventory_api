@@ -2,15 +2,14 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 import { handleUnknownError } from "@utils/ErrorUtils"
+import { getDeleteItemByItemIdQuery } from "@db/queries/ItemQueries"
 
-export const deleteByProductIdMidW = async (productId: number) => {
+export const deleteByItemIdMidW = async (itemId: number) => {
   let dbConn: PoolClient | null = null;
 
   try {
-    const query = `
-      DELETE FROM products A
-      WHERE A.product_id = ${productId}
-    `;
+    if (!itemId) throw new Error('Missing itemId')
+    const query = getDeleteItemByItemIdQuery(itemId)
 
     const qResult = await connPool.query(query);
 
