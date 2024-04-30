@@ -7,7 +7,7 @@ import { handleUnknownError } from "@utils/ErrorUtils"
 const ItemsModel = Joi.object({
   description: Joi.string().optional(),
   name: Joi.string().optional().required().empty(""),
-  parentFolderId: Joi.number().required().integer().positive(),
+  parentFolderId: Joi.number().optional().integer().positive().allow(null),
   price: Joi.number().min(0).optional(),
   quantity: Joi.number().min(0).optional(),
 }).strict();
