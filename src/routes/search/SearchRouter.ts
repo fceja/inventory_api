@@ -9,7 +9,7 @@ const searchRouter = express.Router();
 // auth required
 // READ operations
 searchRouter.get(
-    "/autoComplete",
+    "/autocomplete",
     [validateJwtMidW, refreshJwtMidW],
     SearchController.getAutoCompleteByName,
 );
