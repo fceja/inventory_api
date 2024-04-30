@@ -17,6 +17,12 @@ itemsRouter.post(
 
 // READ operations
 itemsRouter.get(
+    "/",
+    [validateJwtMidW, refreshJwtMidW],
+    ItemsController.getAllItems,
+);
+
+itemsRouter.get(
     "/:itemId",
     [validateJwtMidW, refreshJwtMidW],
     ItemsController.getByItemId,

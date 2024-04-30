@@ -1,24 +1,8 @@
 import { Request, Response } from "express";
 
-import { createItemMidW } from "@middleware/items/CreateItemMidW";
 import { deleteByProductIdMidW } from "@middleware/products/DeleteByProductIdMidW";
 import { handleUnknownError } from "@utils/ErrorUtils"
-import { getAllProductsMidW } from "@middleware/products/GetAllProductsMidW";
 import { updateByProductIdMidW } from "@middleware/products/UpdateByProductIdMidw";
-
-// READ operations
-export const getAllProducts = async (_req: Request, res: Response) => {
-  try {
-    const results = await getAllProductsMidW();
-    if (!results) throw new Error("Error getting products.");
-
-    res.status(200).json({ success: true, products: results });
-  } catch (error: unknown) {
-    handleUnknownError(error)
-
-    res.status(500).json({ success: false, message: "Internal server error." });
-  }
-};
 
 // UPDATE operations
 export const updateByProductId = async (req: Request, res: Response) => {

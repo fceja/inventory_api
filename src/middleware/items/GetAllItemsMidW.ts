@@ -2,14 +2,12 @@ import { PoolClient } from "pg";
 
 import { connPool } from "@db/DbPoolClient";
 import { handleUnknownError } from "@utils/ErrorUtils"
+import { getAllItemsQuery } from "@db/queries/ItemQueries"
 
-export const getAllProductsMidW = async () => {
+export const getAllItemsMidW = async () => {
   let dbConn: PoolClient | null = null;
   try {
-    const query = `
-      SELECT *
-      FROM products
-    `;
+    const query = getAllItemsQuery()
 
     const qResult = await connPool.query(query);
 

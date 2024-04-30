@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { createItemMidW } from "@middleware/items/CreateItemMidW";
 import { handleUnknownError } from "@utils/ErrorUtils"
+import { getAllItemsMidW } from "@middleware/items/GetAllItemsMidW";
 import { getByItemIdMidW } from "@middleware/items/GetByItemIdMidW";
 
 // CREATE operations
@@ -19,6 +20,19 @@ export const createItem = async (req: Request, res: Response) => {
 };
 
 // READ operations
+export const getAllItems = async (_req: Request, res: Response) => {
+    try {
+        const results = await getAllItemsMidW();
+        if (!results) throw new Error("Error getting items.");
+
+        res.status(200).json({ success: true, items: results });
+    } catch (error: unknown) {
+        handleUnknownError(error)
+
+        res.status(500).json({ success: false, message: "Internal server error." });
+    }
+};
+
 export const getByItemId = async (req: Request, res: Response) => {
     try {
         const { itemId } = req.params

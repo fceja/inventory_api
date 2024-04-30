@@ -7,14 +7,6 @@ import validateItemsModel from "@middleware/modelValidation/ValidateItemsModelMi
 
 const productsRouter = express.Router();
 
-// auth required
-// READ operations
-productsRouter.get(
-  "/",
-  [validateJwtMidW, refreshJwtMidW],
-  ProductsController.getAllProducts,
-);
-
 // UPDATE operations
 productsRouter.put(
   "/:productId",

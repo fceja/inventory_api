@@ -37,6 +37,13 @@ export const getCreateItemQuery = (itemData: ItemsModelI) => {
 }
 
 // READ queries
+export const getAllItemsQuery = () => {
+    return `
+        SELECT ${TABLE_COLS}
+        FROM "${TABLE_NAME}"
+    `;
+}
+
 export const getChildItemsByParentFolderIdQuery = (parentFolderId: number) => {
     return `
         SELECT ${TABLE_COLS}
@@ -55,8 +62,8 @@ export const getItemByItemIdQuery = (itemId: number) => {
 
 export const getItemContainingNameQuery = (itemName: string) => {
     return `
-    SELECT ${TABLE_COLS}
-    FROM "${TABLE_NAME}"
-    WHERE LOWER("name") LIKE LOWER('%${itemName}%');
-`
+        SELECT ${TABLE_COLS}
+        FROM "${TABLE_NAME}"
+        WHERE LOWER("name") LIKE LOWER('%${itemName}%');
+    `
 };
