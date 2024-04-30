@@ -28,4 +28,11 @@ itemsRouter.get(
     ItemsController.getByItemId,
 );
 
+// UPDATE operations
+itemsRouter.put(
+    "/:itemId",
+    [validateJwtMidW, refreshJwtMidW, validateItemsModel],
+    ItemsController.updateByItemId,
+);
+
 export default itemsRouter;

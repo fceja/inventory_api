@@ -14,7 +14,7 @@ const TABLE_COLS = `
     "updatedAt"
 `
 
-// CREATE queries
+// CREATE operations
 export const getCreateItemQuery = (itemData: ItemsModelI) => {
     const itemProps = [];
     const valuesClause = [];
@@ -36,7 +36,7 @@ export const getCreateItemQuery = (itemData: ItemsModelI) => {
     return { query: query, queryParams: queryParams };
 }
 
-// READ queries
+// READ operations
 export const getAllItemsQuery = () => {
     return `
         SELECT ${TABLE_COLS}
@@ -67,3 +67,26 @@ export const getItemContainingNameQuery = (itemName: string) => {
         WHERE LOWER("name") LIKE LOWER('%${itemName}%');
     `
 };
+
+// UPDATE operations
+export const getUpdateItemByItemId = (itemId: number, itemData: ItemsModelI) => {
+    // generate sql query statement
+    const setClausePairs = [];
+    const queryParams = [];
+    Object.entries(itemData).forEach(([key]) => {
+        setClausePairs.push(` "${key}"=$${queryParams.length + 1}`);
+        queryParams.push(itemData[key]);
+    });
+
+    const querySetClause = setClausePairs.join(", ");
+    queryParams.push(itemId);
+
+    // final query
+    const query = `
+        UPDATE "${TABLE_NAME}" A
+        SET ${querySetClause}, "updatedAt" = CURRENT_TIMESTAMP
+        WHERE A."itemId"=$${queryParams.length}
+  `;
+
+    return { query: query, queryParams: queryParams };
+}
