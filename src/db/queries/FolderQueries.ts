@@ -32,3 +32,41 @@ export const getFoldersContainingNameQuery = (folderName: string) => {
         WHERE LOWER("name") LIKE LOWER('%${folderName}%');
     `;
 }
+
+export const getFolderHierarchyQuery = () => {
+    return `
+        WITH RECURSIVE FolderHierarchy AS (
+            SELECT
+                "folderId",
+                name,
+                "parentFolderId",
+                0 AS level
+            FROM
+                "folders"
+            WHERE
+                "parentFolderId" IS NULL  -- Root folders have NULL parentFolderId
+
+            UNION ALL
+
+            SELECT
+                f."folderId",
+                f.name,
+                f."parentFolderId",
+                fh.level + 1 AS level
+            FROM
+                "folders" f
+            INNER JOIN
+                FolderHierarchy fh ON f."parentFolderId" = fh."folderId"
+        )
+        SELECT
+            "folderId",
+            name,
+            "parentFolderId",
+            level
+        FROM
+            FolderHierarchy
+        ORDER BY
+            level,
+            "folderId";
+    `;
+}
