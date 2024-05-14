@@ -5,10 +5,13 @@ import { handleUnknownError } from "@utils/ErrorUtils"
 
 // define validation schema for items model props
 const ItemsModel = Joi.object({
+  cost: Joi.number().min(0).optional().allow(null),
   description: Joi.string().optional(),
+  minLevel: Joi.number().min(0).optional().allow(null),
   name: Joi.string().optional().required().empty(""),
-  parentFolderId: Joi.number().optional().integer().positive().allow(null),
-  price: Joi.number().min(0).optional(),
+  nodeType: Joi.string().required().valid("item"),
+  parentFolderId: Joi.number().min(0).optional().allow(null),
+  price: Joi.number().min(0).optional().allow(null),
   quantity: Joi.number().min(0).optional(),
 }).strict();
 
