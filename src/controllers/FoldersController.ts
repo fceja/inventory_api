@@ -7,6 +7,7 @@ import { getAggregatedQuantityByFolderIdMidW } from "@middleware/folders/GetAggr
 import { getAggregatedValueByFolderIdMidW } from "@middleware/folders/GetAggregatedValuesByFolderIdMidW"
 import { getContentsByFolderIdMidW } from "@middleware/folders/GetContentsByFolderIdMidW"
 import { getNodesByFolderIdMidW } from "@middleware/folders/GetNodesByFolderIdMidW";
+import { getFolderHierarchyMidW } from "@middleware/folders/GetFolderHierarchyMidW";
 
 // READ operations
 export const getNodesByFolderId = async (req: Request, res: Response) => {
