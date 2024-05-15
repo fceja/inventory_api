@@ -3,7 +3,6 @@ import Joi from "joi";
 
 import { handleUnknownError } from "@utils/ErrorUtils"
 
-// define validation schema for items model props
 const ItemsModel = Joi.object({
   cost: Joi.number().min(0).optional().allow(null),
   description: Joi.string().optional(),
