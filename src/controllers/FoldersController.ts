@@ -65,3 +65,21 @@ export const getAggregatedDataByFolderId = async (req: Request, res: Response) =
         res.status(500).json({ success: false, message: "Internal server error." });
     }
 };
+
+export const getFolderHierarchy = async (req: Request, res: Response) => {
+    try {
+
+        const results = await getFolderHierarchyMidW();
+        if (!results) throw new Error("Error getting folder hierarchy.");
+
+
+        res.status(200).json({
+            success: true,
+            results: results
+        });
+    } catch (error: unknown) {
+        handleUnknownError(error)
+
+        res.status(500).json({ success: false, message: "Internal server error." });
+    }
+};
