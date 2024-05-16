@@ -9,6 +9,12 @@ const foldersRouter = express.Router();
 // auth required
 // READ operations
 foldersRouter.get(
+  "/hierarchy",
+  [validateJwtMidW, refreshJwtMidW],
+  FoldersController.getFolderHierarchy,
+);
+
+foldersRouter.get(
   "/:folderId",
   [validateJwtMidW, refreshJwtMidW],
   FoldersController.getNodesByFolderId,
