@@ -1,6 +1,7 @@
 # Description
 
-A Node Express Server that provides enpoints for Inventory App.
+A Node Express Server that provides enpoints for Inventory App. <br />
+Currently under development.
 
 <br/>
 
