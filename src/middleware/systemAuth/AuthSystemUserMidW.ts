@@ -23,7 +23,7 @@ export const authSystemUserMidW = async (email: string, password: string) => {
     const storedUser: SystemUserModelI = qResult.rows[0];
     if (!storedUser) throw new Error(`System user does not exist.`);
 
-    const validRoles = ["admin", "mngr", "staff"];
+    const validRoles = ["admin", "publisher", "editor", "readonly"];
     assert.ok(
       validRoles.includes(storedUser.role),
       `Invalid role: ${storedUser.role}`,

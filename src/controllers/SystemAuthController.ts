@@ -16,7 +16,13 @@ export const systemLogin = async (req: Request, res: Response) => {
     // apply jwt token
     res.set("authorization", `Bearer ${getJwtMidW(storedUser)}`);
 
-    return res.status(200).json({ success: true, message: `OK.` });
+    return res.status(200).json({
+      success: true,
+      userData: {
+        id: storedUser.systemUserId,
+        role: storedUser.role
+      }
+    });
   } catch (error: unknown) {
     handleUnknownError(error)
 
