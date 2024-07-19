@@ -19,8 +19,8 @@ export const systemLogin = async (req: Request, res: Response) => {
     return res.status(200).json({
       success: true,
       userData: {
-        id: storedUser.systemUserId,
-        role: storedUser.role
+        userId: storedUser.systemUserId,
+        userRole: storedUser.role
       }
     });
   } catch (error: unknown) {
