@@ -48,11 +48,11 @@ export const getAggregatedDataByFolderId = async (req: Request, res: Response) =
         if (!priceResults) throw new Error("Error getting aggregated prices.");
 
         const folderData = {
-            folderId: Number(folderId),
-            folderTotal: Number(folderResults.folderTotal),
-            itemTotal: Number(itemResults.itemTotal),
-            quantityTotal: Number(quantityResults.quantityTotal),
-            valueTotal: Number(priceResults.valueTotal)
+            folderId: folderId,
+            folderTotal: folderResults.folderTotal,
+            itemTotal: itemResults.itemTotal,
+            quantityTotal: quantityResults.quantityTotal,
+            valueTotal: priceResults.valueTotal
         }
 
         res.status(200).json({
